@@ -17,6 +17,24 @@
 <codeprint class="SEE">
 # 코드잇 풀스택 2기 - Week 1
 
+
+
+## PH
+
+<ul>
+<li>2024-07-25 : First posting.</li>
+</ul>
+
+
+
+## TOC
+
+
+
+## OT
+
+코드잇: <cite class="ref-fs-ot"></cite>
+
 이창신 강사님
 
 노유정 운영 매니저
@@ -27,10 +45,224 @@
 
 신예진 교육 PM 매니저
 
-LMS (코드잇 사이트)
+LMS (코드잇 사이트 Learning Management System)
 
 
-<a target="_blank" href="https://publish.obsidian.md/iasandcb/">https://publish.obsidian.md/iasandcb/</a>
+
+### TIL (Today I Learned) & WIL (Weekly I Learned)
+
+TIL: 계획, 성취, 학습, 개선에 대한 내용은 꼭 포함하여 작성해 주세요!
+
+<div class="cmt">
+
+제목: [TIL 1일 차] (각장 개성 있게 글의 제목을 지어주세요!)
+
+<ol>
+<li>오늘의 나는 무엇을 잘했을까? → 성취</li>
+<li>오늘의 나는 무엇을 배웠을까? → 학습</li>
+<li>오늘의 나는 어떤 어려움이 있었을까? → 개선</li>
+<li>내일의 나는 무엇을 해야 할까? → 계획</li>
+</ol>
+
+</div>
+
+WIL:
+
+<div class="cmt">
+
+제목: [WIL 1주 차] (각자 개성 있게 글의 제목을 지어주세요!)
+
+<ol>
+<li>START (발전하는 나를 위한 습관)</li>
+<li>STOP (일주일을 돌아보며 하지 말아야 할 행동, 습관)</li>
+<li>Continue (습관을 잘 유지하고 있는지 회고)</li>
+<li>What I Learned (한 주를 지내며 무엇을 배웠는지, 큰 주제를 기준으로)</li>
+</ol>
+
+</div>
+
+
+## 웹 개발 기초 지식 (4H)
+
+강의 obsidian.md: <cite class="ref-obsidian"></cite>
+
+코드잇: <cite class="ref-web-dev"></cite>
+
+Postman.com: <cite class="ref-postman"></cite>
+
+
+
+### API (Application Programming Interface, 에이피아이)
+
+Interface: 맞닫는면, 접점, e.g. UI (User Interface)
+
+<div class="p">
+<a target="_blank" href="https://learn.codeit.kr/color-surveys/">https://learn.codeit.kr/color-surveys/</a><br/>
+<a target="_blank" href="https://www.codeit.kr/tutorials/36/color-survey-api-documentation">https://www.codeit.kr/tutorials/36/color-survey-api-documentation</a>
+</div>
+
+에러 상태 코드 (status code) 가 뭐 뜨는지도 좀 유의깊게 봐야할듯?
+
+```[.scrollable.lang-js]
+GET: <a target="_blank" href="https://learn.codeit.kr/api/color-surveys">https://learn.codeit.kr/api/color-surveys</a>
+response: 200 OK
+{
+    "count": 79, // Delete 된 것도 있어서 마지막 id 보다 작을 수 있음.
+    "next": "https://learn.codeit.kr/api/color-surveys/?offset=10&limit=10",
+    "previous": null,
+    "results": [
+        {
+            "createdAt": 1721912001000,
+            "updatedAt": 1721912001000,
+            "colorCode": "#6423DB",
+            "id": 80,
+            "mbti": "ISTP"
+        },
+        {
+            "createdAt": 1721911989000,
+            "updatedAt": 1721911989000,
+            "colorCode": "#6423DB",
+            "id": 79,
+            "mbti": "ISTP"
+        },
+        {
+            "createdAt": 1721911930000,
+            "updatedAt": 1721911930000,
+            "colorCode": "#98FC03",
+            "id": 78,
+            "mbti": "ISTP"
+        },
+        {
+            "createdAt": 1721911813000,
+            "updatedAt": 1721911813000,
+            "colorCode": "#CA6952",
+            "id": 77,
+            "mbti": "ISFP"
+        },
+        {
+            "createdAt": 1721910533000,
+            "updatedAt": 1721910533000,
+            "colorCode": "#000000",
+            "id": 76,
+            "mbti": "INTJ"
+        },
+        {
+            "createdAt": 1721896679000,
+            "updatedAt": 1721896679000,
+            "colorCode": "#000000",
+            "id": 75,
+            "mbti": "ESFJ"
+        },
+        {
+            "createdAt": 1721896260000,
+            "updatedAt": 1721896260000,
+            "colorCode": "#000000",
+            "id": 74,
+            "mbti": "ISTJ"
+        },
+        {
+            "createdAt": 1721892865000,
+            "updatedAt": 1721892865000,
+            "colorCode": "#03D7FC",
+            "id": 73,
+            "mbti": "INTP"
+        },
+        {
+            "createdAt": 1721891911000,
+            "updatedAt": 1721891911000,
+            "colorCode": "#4245F5",
+            "id": 72,
+            "mbti": "ISTJ"
+        },
+        {
+            "createdAt": 1721890717000,
+            "updatedAt": 1721890717000,
+            "colorCode": "#2887ED",
+            "id": 71,
+            "mbti": "INTJ"
+        }
+    ]
+}
+```/
+
+```[.scrollable.lang-js]
+GET: <a target="_blank" href="https://learn.codeit.kr/api/color-surveys/80">https://learn.codeit.kr/api/color-surveys/80</a>
+response: 200 OK
+{
+    "createdAt": 1721912001000,
+    "updatedAt": 1721912001000,
+    "colorCode": "#6423DB",
+    "id": 80,
+    "mbti": "ISTP"
+}
+```/
+
+```[.scrollable.lang-js]
+POST: <a target="_blank" href="https://learn.codeit.kr/api/color-surveys">https://learn.codeit.kr/api/color-surveys</a>
+
+{
+  "mbti": "INTJ",
+  "colorCode": "#5e74d6",
+  "password": "5050"
+}
+response: 201 Created
+
+
+
+PATCH: <a target="_blank" href="https://learn.codeit.kr/api/color-surveys/81">https://learn.codeit.kr/api/color-surveys/81</a>
+
+{
+  "colorCode": "#6f74d6",
+  "password": "5050"
+}
+response: 200 OK
+
+
+
+DELETE: <a target="_blank" href="https://learn.codeit.kr/api/color-surveys/81">https://learn.codeit.kr/api/color-surveys/81</a>
+
+{
+  "password": "5050"
+}
+
+response: 200 OK
+{
+    "createdAt": 1721913027000,
+    "updatedAt": 1721915906000,
+    "colorCode": "#6E74D6",
+    "id": 81,
+    "mbti": "INTJ"
+}
+
+두번째 호출
+response: 404 Not Found
+```/
+
+
+
+## 웹 퍼블리싱 시작하기 (2H)
+
+강의 obsidian.md: <cite class="ref-obsidian"></cite>
+
+코드잇: <cite class="ref-web-publish"></cite>
+
+Netlify.com: <cite class="ref-netlify"></cite>
+
+
+
+## RRA
+
+<ol class="refs">
+<li id="ref-fs-ot"><a target="_blank" href="https://www.codeit.kr/topics/sprint-fs-ot">코드잇 스프린트: 풀스택 OT - 강의 | 코드잇</a></li>
+<li id="ref-obsidian"><a target="_blank" href="https://publish.obsidian.md/iasandcb/">https://publish.obsidian.md/iasandcb/</a><br/>
+	<a target="_blank" href="https://publish.obsidian.md/iasandcb/site/2024-07-25">https://publish.obsidian.md/iasandcb/site/2024-07-25</a></li>
+<li id="ref-web-dev"><a target="_blank" href="https://www.codeit.kr/topics/web-dev-fundamentals">웹 개발 기초 지식 - 강의 | 코드잇</a></li>
+<li id="ref-postman"><a target="_blank" href="https://www.postman.com/">https://www.postman.com/</a><br/>
+	<a target="_blank" href="https://web.postman.co/workspace/My-Workspace~8a97cc8a-c24f-4360-8189-1cb97d80ffd2/overview">https://web.postman.co/workspace/My-Workspace~8a97cc8a-c24f-4360-8189-1cb97d80ffd2/overview</a></li>
+<li id="ref-web-publish"><a target="_blank" href="https://www.codeit.kr/topics/intro-to-web-publishing">웹 퍼블리싱 시작하기 - 강의 | 코드잇</a></li>
+<li id="ref-netlify"><a target="_blank" href="https://app.netlify.com/sites/kipid/overview">https://app.netlify.com/sites/kipid/overview</a><br/>
+	<a target="_blank" href="https://kipid.netlify.app">https://kipid.netlify.app</a></li>
+</ol>
 </codeprint><!-- SEE -->
 
 <codeprint id="docuK-script">
