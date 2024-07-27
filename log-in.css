@@ -1,0 +1,80 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+  padding: 120px 0;
+}
+
+form {
+  width: 360px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #4e4e4e;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+label {
+  font-size: 16px;
+  font-weight: 400;
+  color: #2c2c2c;
+  display: block;
+  margin: 16px 0 8px;
+}
+
+input {
+  display: block;
+  color: #ababab;
+  border: 1px solid #d1d1d1;
+  width: 100%;
+  padding: 16px 24px;
+  margin: 8px 0;
+}
+
+input::placeholder {
+  color: #dddddd;
+}
+
+.right {
+  text-align: right;
+}
+
+.center {
+  text-align: center;
+}
+
+.question {
+  font-size: 14px;
+  font-weight: 400;
+  color: #ababab;
+}
+
+#link-forgot-pwd {
+  color: #ababab;
+}
+
+#link-sign-up {
+  color: #2c2c2c;
+}
+
+button {
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  display: block;
+  width: 100%;
+  background: black;
+  color: white;
+  font-weight: bold;
+  padding: 16px;
+  margin: 24px 0;
+}

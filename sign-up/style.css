@@ -1,0 +1,76 @@
+:root {
+  --primary-color: #2c2c2c;
+  --secondary-color: #4e4e4e;
+  --border-color: #d1d1d1;
+  --text-color: #ababab;
+}
+
+html {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+form {
+  margin: 16px auto;
+  width: 360px;
+}
+
+label, legend {
+  color: var(--primary-color);
+  display: block;
+  margin: 16px 0 8px;
+}
+
+input, textarea, select, fieldset {
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  display: block;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 8px 0;
+  padding: 16px 24px;
+  width: 100%;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  display: inline-block;
+  width: initial;
+}
+
+button {
+  background: var(--primary-color);
+  border: none;
+  color: #ffffff;
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 24px 0;
+  padding: 16px;
+  width: 100%;
+}
+
+button:hover, button:focus {
+  background-color: var(--secondary-color);
+  cursor: pointer;
+}
+
+.login-title {
+  color: var(--secondary-color);
+  font-size: 36px;
+  font-weight: 700;
+  margin: 24px 0;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  form {
+    width: 100%;
+    padding: 0 16px;
+  }
+}

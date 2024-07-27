@@ -1,0 +1,154 @@
+* {
+  box-sizing: border-box;
+}
+
+img {
+  box-sizing: content-box;
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f8f8f8;
+  margin: 0;
+  padding: 0;
+}
+
+.header-container {
+  width: 100%;
+  min-width: 640px;
+  background: #11172b;
+}
+
+header {
+  padding: 12px 0;
+  width: 640px;
+  margin: 0 auto;
+}
+
+header>h1 {
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1;
+  padding-left: 12px;
+  color: #ffffff;
+  font-family: 'Titillium Web';
+  margin: 0;
+  display: inline-block;
+}
+
+header>img.logo {
+  height: 24px;
+  width: 24px;
+  margin-bottom: -4px;
+}
+
+header .bold {
+  font-weight: 600;
+}
+
+section {
+  width: 640px;
+  margin: 20px auto;
+  padding: 0 24px 24px;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+section.depart {
+  margin-top: 40px;
+  padding: 24px 32px;
+  background-color: #ebeff8;
+}
+
+section.depart>h3 {
+  font-size: 16px;
+  color: #b3bdd5;
+  margin: 0 0 8px;
+}
+
+section.depart>h3>img.depart {
+  height: 12px;
+  padding-right: 8px;
+}
+
+section.depart>h2 {
+  font-size: 32px;
+  font-family: 'Titillium Web';
+  color: #000000;
+  margin: 0 0 24px;
+}
+
+section.depart>.date {
+  background-color: #ffffff;
+  display: inline-block;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #000000;
+  padding: 8px 24px;
+  margin-bottom: 16px;
+}
+
+section.depart>.description {
+  font-size: 12px;
+  color: #b3bdd5
+}
+
+hr.hr-section {
+  border-width: 2px 0 0 0;
+  border-color: #b6bfd3;
+  width: 640px;
+  margin: 0 auto;
+  border-style: dashed;
+}
+
+section>h3 {
+  font-size: 12px;
+  font-weight: 700;
+  color: #16bf97;
+  font-family: 'Titillium Web';
+  padding: 8px 0;
+  margin: 0;
+}
+
+hr.hr-h3 {
+  border-width: 1px 0 0 0;
+  border-color: #dbf1ec;
+  width: 640px;
+  margin: 0 0 26px -24px;
+  border-style: solid;
+}
+
+.sub-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: #b3bdd5;
+  margin: 4px 0;
+}
+
+.time-to-time {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a345e;
+}
+
+.time-to-time>img {
+  width: 18px;
+  margin-bottom: -2px;
+  padding: 0 10px;
+}
+
+.right {
+  text-align: right;
+}
+
+.right>.button {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a345e;
+  display: inline-block;
+  margin-left: 24px;
+}
+
+.right>.button.soldout {
+  color: #b6bfd3;
+}
