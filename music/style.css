@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html {
   font-family: Pretendard, sans-serif;
   word-break: keep-all;
@@ -24,6 +28,9 @@ header {
   );
   padding: 16px;
   font-weight: 700;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .bg {
@@ -31,9 +38,17 @@ header {
   opacity: 0.5;
 }
 
+section.hero {
+  position: relative;
+}
 
 .hero-heading {
-  margin: 0;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: -160px 0 0;
   padding: 24px;
   background-image: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 1) 100%);
 }
@@ -58,6 +73,17 @@ header {
   font-weight: 700;
 }
 
+section.headline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+section.headline>div {
+  padding: 0 20px 0  100px;
+  max-width: 500px;
+}
+
 .headline-image {
   width: 504px;
   height: 520px;
@@ -76,6 +102,9 @@ header {
 }
 
 .promotion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background-color: #280357;
   margin: 200px 0;
   padding: 80px 180px;
@@ -111,18 +140,36 @@ header {
   margin: 32px 0;
 }
 
+.benefits {
+  display: grid;
+  grid-template: 1fr 1fr / 1fr 1fr;
+  gap: 24px;
+}
+
 .plans {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
   margin-bottom: 120px;
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 56px 96px;
   border: 2px solid #ffffff;
   border-radius: 16px;
   text-align: center;
 }
 
+.card.wide {
+  grid-column: 1 / 3;
+}
+
 .card.event {
+  position: relative;
   border-color: #7f5fff;
 }
 
@@ -147,7 +194,9 @@ header {
 }
 
 .card.event .event-badge {
-  background-color: red;
+  position: absolute;
+  top: 12px;
+  right: 12px;
   font-weight: 700;
   padding: 8px 12px;
   background: #7f5fff;
@@ -163,6 +212,18 @@ footer {
   margin-top: 160px;
   padding: 64px 180px 80px;
   background-color: #14161f;
+}
+
+.footer-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.footer-info-container {
+  margin: 36px 0 0;
+  display: flex;
+  justify-content: space-between;
 }
 
 .footer-content a {
