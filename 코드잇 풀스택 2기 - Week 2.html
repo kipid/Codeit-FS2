@@ -14,6 +14,161 @@
 
 <meta charset="utf-8" name="description" content="pure SEE."/>
 
+<style>
+:root {
+  /* Black */
+  --black-0: #000000;
+  --black-1: #1a1a1a;
+  --black-2: #333333;
+  --black-3: #4d4d4d;
+  --black-4: #666666;
+  --black-5: #808080;
+  --black-6: #a6a6a6;
+  --black-7: #cccccc;
+  --black-8: #e6e6e6;
+  --black-9: #ffffff;
+
+  /* Dark Red */
+  --dark-red-0: #330000;
+  --dark-red-1: #4d0000;
+  --dark-red-2: #660000;
+  --dark-red-3: #800000;
+  --dark-red-4: #990000;
+  --dark-red-5: #cc0000;
+  --dark-red-6: #ff0000;
+  --dark-red-7: #ff3333;
+  --dark-red-8: #ff6666;
+  --dark-red-9: #ff9999;
+
+  /* Red */
+  --red-0: #4d0000;
+  --red-1: #660000;
+  --red-2: #800000;
+  --red-3: #990000;
+  --red-4: #b30000;
+  --red-5: #e60000;
+  --red-6: #ff1a1a;
+  --red-7: #ff4d4d;
+  --red-8: #ff8080;
+  --red-9: #ffb3b3;
+
+  /* Orange */
+  --orange-0: #4d2600;
+  --orange-1: #663300;
+  --orange-2: #804000;
+  --orange-3: #994d00;
+  --orange-4: #b35900;
+  --orange-5: #e67300;
+  --orange-6: #ff8c1a;
+  --orange-7: #ffaa4d;
+  --orange-8: #ffc880;
+  --orange-9: #ffe6b3;
+
+  /* Yellow */
+  --yellow-0: #4d4d00;
+  --yellow-1: #666600;
+  --yellow-2: #808000;
+  --yellow-3: #999900;
+  --yellow-4: #b3b300;
+  --yellow-5: #e6e600;
+  --yellow-6: #ffff1a;
+  --yellow-7: #ffff4d;
+  --yellow-8: #ffff80;
+  --yellow-9: #ffffb3;
+
+  /* Green */
+  --green-0: #003300;
+  --green-1: #004d00;
+  --green-2: #006600;
+  --green-3: #008000;
+  --green-4: #009900;
+  --green-5: #00cc00;
+  --green-6: #00ff00;
+  --green-7: #33ff33;
+  --green-8: #66ff66;
+  --green-9: #99ff99;
+
+  /* Aqua */
+  --aqua-0: #001a1a;
+  --aqua-1: #003333;
+  --aqua-2: #004d4d;
+  --aqua-3: #006666;
+  --aqua-4: #008080;
+  --aqua-5: #00b3b3;
+  --aqua-6: #00e6e6;
+  --aqua-7: #1affff;
+  --aqua-8: #4dffff;
+  --aqua-9: #80ffff;
+
+  /* Light Blue */
+  --light-blue-0: #001a33;
+  --light-blue-1: #00264d;
+  --light-blue-2: #003366;
+  --light-blue-3: #004080;
+  --light-blue-4: #004d99;
+  --light-blue-5: #0066cc;
+  --light-blue-6: #0080ff;
+  --light-blue-7: #3399ff;
+  --light-blue-8: #66b3ff;
+  --light-blue-9: #99ccff;
+
+  /* Blue */
+  --blue-0: #000066;
+  --blue-1: #000080;
+  --blue-2: #0000b3;
+  --blue-3: #0000cc;
+  --blue-4: #0000e6;
+  --blue-5: #0000ff;
+  --blue-6: #3333ff;
+  --blue-7: #6666ff;
+  --blue-8: #9999ff;
+  --blue-9: #ccccff;
+
+  /* Purple */
+  --purple-0: #1a0033;
+  --purple-1: #26004d;
+  --purple-2: #330066;
+  --purple-3: #400080;
+  --purple-4: #4d0099;
+  --purple-5: #6600cc;
+  --purple-6: #7f00ff;
+  --purple-7: #9933ff;
+  --purple-8: #b366ff;
+  --purple-9: #cc99ff;
+
+  /* Peach Bloom */
+  --peach-bloom-0: #330019;
+  --peach-bloom-1: #4d0026;
+  --peach-bloom-2: #660033;
+  --peach-bloom-3: #800040;
+  --peach-bloom-4: #99004d;
+  --peach-bloom-5: #cc0066;
+  --peach-bloom-6: #ff007f;
+  --peach-bloom-7: #ff3399;
+  --peach-bloom-8: #ff66b3;
+  --peach-bloom-9: #ff99cc;
+
+  --background-color: var(--peach-bloom-9);
+  --text-color: var(--purple-3);
+}
+
+#colors-container {
+  font-size: .5em;
+  display: grid;
+  width: 100%;
+  height: 700px;
+  grid-template:
+    repeat(10, 1fr) /
+    repeat(11, 1fr);
+  gap: 5px;
+}
+
+#test-div {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+</style>
+
 <codeprint class="SEE">
 # 코드잇 풀스택 2기 - Week 2
 
@@ -41,6 +196,181 @@ Obsidian.md: <cite class="ref-obsidian"></cite>
 
 
 
+### Color list
+
+```[.scrollable.lang-css]
+:root {
+  /* Black */
+  --black-0: #000000;
+  --black-1: #1a1a1a;
+  --black-2: #333333;
+  --black-3: #4d4d4d;
+  --black-4: #666666;
+  --black-5: #808080;
+  --black-6: #a6a6a6;
+  --black-7: #cccccc;
+  --black-8: #e6e6e6;
+  --black-9: #ffffff;
+
+  /* Dark Red */
+  --dark-red-0: #330000;
+  --dark-red-1: #4d0000;
+  --dark-red-2: #660000;
+  --dark-red-3: #800000;
+  --dark-red-4: #990000;
+  --dark-red-5: #cc0000;
+  --dark-red-6: #ff0000;
+  --dark-red-7: #ff3333;
+  --dark-red-8: #ff6666;
+  --dark-red-9: #ff9999;
+
+  /* Red */
+  --red-0: #4d0000;
+  --red-1: #660000;
+  --red-2: #800000;
+  --red-3: #990000;
+  --red-4: #b30000;
+  --red-5: #e60000;
+  --red-6: #ff1a1a;
+  --red-7: #ff4d4d;
+  --red-8: #ff8080;
+  --red-9: #ffb3b3;
+
+  /* Orange */
+  --orange-0: #4d2600;
+  --orange-1: #663300;
+  --orange-2: #804000;
+  --orange-3: #994d00;
+  --orange-4: #b35900;
+  --orange-5: #e67300;
+  --orange-6: #ff8c1a;
+  --orange-7: #ffaa4d;
+  --orange-8: #ffc880;
+  --orange-9: #ffe6b3;
+
+  /* Yellow */
+  --yellow-0: #4d4d00;
+  --yellow-1: #666600;
+  --yellow-2: #808000;
+  --yellow-3: #999900;
+  --yellow-4: #b3b300;
+  --yellow-5: #e6e600;
+  --yellow-6: #ffff1a;
+  --yellow-7: #ffff4d;
+  --yellow-8: #ffff80;
+  --yellow-9: #ffffb3;
+
+  /* Green */
+  --green-0: #003300;
+  --green-1: #004d00;
+  --green-2: #006600;
+  --green-3: #008000;
+  --green-4: #009900;
+  --green-5: #00cc00;
+  --green-6: #00ff00;
+  --green-7: #33ff33;
+  --green-8: #66ff66;
+  --green-9: #99ff99;
+
+  /* Aqua */
+  --aqua-0: #001a1a;
+  --aqua-1: #003333;
+  --aqua-2: #004d4d;
+  --aqua-3: #006666;
+  --aqua-4: #008080;
+  --aqua-5: #00b3b3;
+  --aqua-6: #00e6e6;
+  --aqua-7: #1affff;
+  --aqua-8: #4dffff;
+  --aqua-9: #80ffff;
+
+  /* Light Blue */
+  --light-blue-0: #001a33;
+  --light-blue-1: #00264d;
+  --light-blue-2: #003366;
+  --light-blue-3: #004080;
+  --light-blue-4: #004d99;
+  --light-blue-5: #0066cc;
+  --light-blue-6: #0080ff;
+  --light-blue-7: #3399ff;
+  --light-blue-8: #66b3ff;
+  --light-blue-9: #99ccff;
+
+  /* Blue */
+  --blue-0: #000066;
+  --blue-1: #000080;
+  --blue-2: #0000b3;
+  --blue-3: #0000cc;
+  --blue-4: #0000e6;
+  --blue-5: #0000ff;
+  --blue-6: #3333ff;
+  --blue-7: #6666ff;
+  --blue-8: #9999ff;
+  --blue-9: #ccccff;
+
+  /* Purple */
+  --purple-0: #1a0033;
+  --purple-1: #26004d;
+  --purple-2: #330066;
+  --purple-3: #400080;
+  --purple-4: #4d0099;
+  --purple-5: #6600cc;
+  --purple-6: #7f00ff;
+  --purple-7: #9933ff;
+  --purple-8: #b366ff;
+  --purple-9: #cc99ff;
+
+  /* Peach Bloom */
+  --peach-bloom-0: #330019;
+  --peach-bloom-1: #4d0026;
+  --peach-bloom-2: #660033;
+  --peach-bloom-3: #800040;
+  --peach-bloom-4: #99004d;
+  --peach-bloom-5: #cc0066;
+  --peach-bloom-6: #ff007f;
+  --peach-bloom-7: #ff3399;
+  --peach-bloom-8: #ff66b3;
+  --peach-bloom-9: #ff99cc;
+}
+```/
+
+<figure><div class="fig">
+	<div class="caption">VS code 로 본 Color variables</div>
+	<img src="https://blog.kakaocdn.net/dn/AmaUV/btsIPsfAwop/E3Ip7qk3pFksLMhQ0N7Nx0/img.png" alt="Color Variables">
+</div></figure>
+
+
+
+### 예시 (Examples)
+
+<script></script>
+
+<div id="colors-container"></div>
+
+
+
+### 사용법
+
+```
+:root {
+  ...
+  ...
+  ...
+
+  --background-color: var(--peach-bloom-9);
+  --text-color: var(--purple-3);
+}
+
+#test-div {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+```/
+
+<div id="test-div">테스트를 해봅시다. 즐거운 코딩~!!</div>
+
+
+
 ## RRA
 
 <ol class="refs">
@@ -65,7 +395,7 @@ m.delayPad=512;
  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
 **/
 window.disqus_config=function () {
-	this.page.identifier="코드잇-풀스택-2기-Week-1"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	this.page.identifier="코드잇-풀스택-2기-Week-2"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 	this.page.url=`https://kipid.tistory.com/entry/${this.page.identifier}`; // Replace PAGE_URL with your page's canonical URL variable
 };
 })(window.m, jQuery);
@@ -74,3 +404,15 @@ window.disqus_config=function () {
 <!-- From kipid.tistory CDN -->
 <script src="https://tistory3.daumcdn.net/tistory/1468360/skin/images/docuK-postProcess-2.3.js" charset="utf-8"></script>
 </codeprint><!-- docuK-script -->
+
+<script>
+let colorsHTML = ``;
+const colors = ['black', 'dark-red', 'red', 'orange', 'yellow', 'green', 'aqua', 'light-blue', 'blue', 'purple', 'peach-bloom'];
+for (let j=0; j<10; j++) {
+  for (let color of colors) {
+    colorsHTML += `<div style="background:var(--${color}-${j})">--${color}-${j}</div>`;
+  }
+}
+
+$("#colors-container").html(colorsHTML);
+</script>
