@@ -17,10 +17,18 @@ body {
 }
 
 .sidebar {
-  padding: 16px;
+  position: fixed;
+  inset: 0;
+  padding: 16px 16px 110px;
+  overflow: auto;
   background-color: #161519;
   color: #8c8993;
   width: 240px;
+}
+
+main {
+  margin-left: 240px;
+  padding-bottom: 110px;
 }
 
 .logo {
@@ -44,8 +52,23 @@ body {
   color: #ffffff;
 }
 
+.player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+}
+
 .progress-bar {
+  position: relative;
+  left: 0;
+  top: 0;
+  z-index: 100;
   height: 6px;
+  width: 100%;
   background: linear-gradient(0deg, #4d4d54, #4d4d54),
     linear-gradient(0deg, #4d4d54, #4d4d54), #4d4d54;
 }
@@ -56,14 +79,22 @@ body {
   background-color: #7000ff;
 }
 
-.player {
-  height: 100px;
-}
-
 .player-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 94px;
   padding: 16px 40px;
   background-color: rgba(48, 48, 55, 0.7);
   backdrop-filter: blur(15px);
+}
+
+.info,
+.time {
+  display: flex;
+  flex-basis: 300px;
+  align-items: center;
+  gap: 15px;
 }
 
 .current {
@@ -90,6 +121,7 @@ body {
 
 .time {
   color: #8c8993;
+  justify-content: flex-end;
 }
 
 section {
@@ -179,7 +211,6 @@ section {
 }
 
 .artist {
-  width: 120px;
   text-align: center;
   border-radius: 50%;
 }
