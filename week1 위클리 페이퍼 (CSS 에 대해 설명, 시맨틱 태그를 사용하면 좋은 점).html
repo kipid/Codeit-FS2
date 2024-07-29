@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=3, user-scalable=yes"/>
+
+<codeprint id="docuK-style">
+<div class="docuK rendered"><div class="sec" id="docuK-log"></div></div>
+
+<!-- From kipid.tistory CDN -->
+<script src="https://tistory1.daumcdn.net/tistory/1468360/skin/images/jquery.js"></script>
+<link rel="stylesheet" href="https://tistory1.daumcdn.net/tistory/1468360/skin/images/docuK-2.3.css">
+<script src="https://tistory3.daumcdn.net/tistory/1468360/skin/images/docuK-prepare-2.3.js" charset="utf-8"></script>
+</codeprint><!-- docuK-style -->
+
+<meta charset="utf-8" name="description" content="pure SEE."/>
+
+<codeprint class="SEE">
+# week1 위클리 페이퍼 (CSS 에 대해 설명, 시맨틱 (Semantic) 태그를 사용하면 좋은 점)
+
+
+
+## TOC
+
+
+
+## CSS (Cascading Style Sheets) 의 Cascading에 대해 설명해 주세요.
+
+Cascading: 폭포처럼 떨어지는...
+
+폭포처럼 떨어지는 것처럼 CSS Selector 가 가장 specific (구체적: id, class, tag or postfix (e.g. <code>:hover, :focus, :visited, :nth-child(3), :first-child, ::before, ::after, ::placeholder</code>)) 스타일부터 적용시켜 나가면서 덜 specific 한 CSS Selector 를 순회하면서 스타일을 적용시키는 방법. Cascading 이란 이름이 붙은 이유가 이것 때문이라고 생각 됨.
+
+
+
+### display: block, inline; (Normal Flow)
+
+HTML 의 기본적인 표시 방식.
+
+<figure><div class="fig">
+	<div class="caption"></div>
+	<img src="" alt="">
+</div></figure>
+
+
+
+### position: <span class="bold">static</span>, relative, absolute, fixed, sticky; (Position)
+
+static 이 기본값.
+
+원래 있어야 할 위치에 대해 어떻게 다른식으로 배치할 것인가에 따라 속성이 바뀜. <cite class="ref-position"></cite>
+
+
+
+#### position: static;
+
+기본 속성값. <code>display: block or inline;</code> 에 따라 위치해야 할 곳에 그대로 배치.
+
+
+
+#### position: relative;
+
+있어야할 곳에서 상대적으로 <code>top, right, bottom, left</code> 값에 따라 이동하여 배치. (하나로 통합하여 <code>inset: top right bottom left;</code> 값을 한꺼번에 쓸수도 있음. 4가지 값이 모두 같은 경우 하나의 값만, 상하 좌우가 따로 같을 경우 <code>top/bottom</code>, <code>right/left</code> 값 두개만 써서 표현 가능.) 원래 있던 자리는 차지한 것처럼 다른 요소 (DOM Elemets) 들이 정리 됨.
+
+
+
+#### position: absolute;
+
+해당 DOM Element 의 parents 중 가장 가까운 <span class="bold"><code>position: static</code> 이 아닌</span> 상위 Elements 를 기준으로 절대적으로 <code>top, right, bottom, left</code> 값에 따라 변경되어 표시 됨. 해당 DOM Element 의 parents 중 <code>position: static</code> 이 아닌 DOM Element 가 없다면 <code>body</code> 를 기준으로 절대적으로 배치.
+
+이 position 은 자기 자리를 차지하지 않고, 비워진것처럼 나머지 Elements 들이 배치 됨.
+
+
+
+#### position: fixed;
+
+Browser window (브라우저 화면) 기준으로 고정된 값 <code>top, right, bottom, left</code> 에 의해 위치가 결정 됨. <code>position: absolute;</code> 와 마찬가지로 자기 자리는 비워진것처럼 나머지 Elements 들이 배치 됨.
+
+
+
+#### position: sticky;
+
+원래 자기 자리에 위치해 있다가, <code>top, right, bottom, left</code> 따라 Browser window 가 해당 Element 를 벗어나려고 하면, 화면의 해당 위치에 딱 붙어서 (sticky 하게) 고정된 위치를 차지하게 됨.
+
+Browser window 내에 있으면 <code>position: static;</code> 가 비슷하게 동작하기 때문에 자기 자리를 차지한 상태로 나머지 Elements 들이 배치 됨.
+
+기본 <code>z-index: auto;</code> 로 아래 Elements 들 보다 앞에 위치함에도 자동적으로 젤 위로 올라오려는 성질이 있긴 하나, <code>z-index: 100;</code> 정도로 추가적으로 속성을 적어주는 것이 권장 됨. 아래 요소들이 위쪽으로 덮어 씌워질 확률도 있기 때문.
+
+
+
+#### z-index: &lt;number&gt;
+
+Elements 들의 앞뒤 순서를 정할 때 쓰는 값. 기본값은 <code>auto</code>.
+
+z-index 가 내맘대로 안될 때는 다음 글 <cite class="ref-z-index"></cite> 를 참고하세요. (<code>z-index</code> 값은 단순히 서로 비교만 하는 게 아니라, 쌓임 맥락 (Stacking Context) 안에서 비교하기 때문.)
+
+z-index 의 경우에는 position 을 static 으로 하면 안되고 다른 값으로 설정해야합니다. (정확한 답변인지는 확인이 필요!! <code>position: static;</code> 이어도 <code>z-index</code> 적용되는 줄 알았는데 아닌듯?)
+
+z-index 는 부모를 벗어날 수 없습니다. 하위 Element 의 z-index 를 아무리 높여도 그건 부모 태그 내에서만 해당됩니다. 이것이 쌓임 맥락 (Stacking Context) 입니다.
+
+
+
+### display: flex; (Flexbox)
+
+한 방향으로 유연하게 적용되는 표시 (display) 방식.
+
+
+
+### display: grid; (Grid)
+
+가로, 세로를 모두 적용해서 쓰는 표시 (display) 방식.
+
+
+
+## 시맨틱 (Semantic) 태그를 사용하면 좋은 점을 설명해 주세요.
+
+Semantic (의미) &lt;-&gt; Syntax (문법: 보여지는 것)
+
+의미가 담긴 Semantic tag 를 사용하므로서 다른 공동 개발자나 Search Engine 에게 좀 더 해당 페이지에 담긴 내용들을 체계적으로 의미도 담아서 전달하기 때문에 사람이 이해하기도 더 좋고, Search Engine Optimization (SEO) 입장에서도 더 좋다고 생각됩니다. <cite class="ref-semantic"></cite>
+
+```[.lang-html]
+&lt;header&gt;: 영역 위쪽에서 로고나 제목, 메뉴 같은 걸 담고 있는 도입부
+&lt;nav&gt;: 네비게이션 메뉴, GNB (Global Navigation Bar)
+&lt;main&gt;: 사이트의 본격적인 내용으로 페이지에서 딱 한 번만 사용 가능
+&lt;footer&gt;: 영역 아래쪽에서 여러 가지 연락처나 관련 정보를 담고 있음
+&lt;article&gt;: 하나의 완성된, 독립적인 내용을 나타내는 영역
+&lt;section&gt;: 어떤 것의 일부분을 나타내는 영역
+&lt;figure&gt;: 이미지와, 이미지 설명을 담고 있는 영역
+```/
+
+
+
+## RRA
+
+<ol class="refs">
+<li id="ref-semantic"><a target="_blank" href="https://www.codeit.kr/topics/html-core-concepts/lessons/5747">코드잇 - 의미있는 HTML 정리</a></li>
+<li id="ref-position"><a target="_blank" href="https://www.codeit.kr/topics/css-layout/lessons/5763">코드잇 - Position 정리</a></li>
+<li id="ref-z-index"><a target="_blank" href="https://www.codeit.kr/topics/css-layout/lessons/5761">코드잇 - z-index 가 내맘대로 안될 때</a></li>
+</ol>
+</codeprint><!-- SEE -->
+
+<codeprint id="docuK-script">
+<script>
+(function(m, $, undefined) {
+m.printMode=false;
+m.recoCats="";
+m.wait=1024;
+m.delayPad=512;
+
+/**
+ *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+ *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+**/
+window.disqus_config=function () {
+	this.page.identifier="pure-SEE-copiable"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	this.page.url=`https://kipid.tistory.com/entry/${this.page.identifier}`; // Replace PAGE_URL with your page's canonical URL variable
+};
+})(window.m, jQuery);
+</script>
+
+<!-- From kipid.tistory CDN -->
+<script src="https://tistory3.daumcdn.net/tistory/1468360/skin/images/docuK-postProcess-2.3.js" charset="utf-8"></script>
+</codeprint><!-- docuK-script -->
