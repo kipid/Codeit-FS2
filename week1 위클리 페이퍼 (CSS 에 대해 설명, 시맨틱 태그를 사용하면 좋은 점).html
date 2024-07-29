@@ -100,13 +100,47 @@ z-index 는 부모를 벗어날 수 없습니다. 하위 Element 의 z-index 를
 
 ### display: flex; (Flexbox)
 
-한 방향으로 유연하게 적용되는 표시 (display) 방식.
+한 방향으로 유연하게 적용되는 표시 (display) 방식. 1차원 정렬. <cite class="ref-flex"></cite>
+
+```
+flex-direction: <span class="bold">row</span> (기본값) or column;
+
+justify-content: <span class="bold">flex-start</span> or center or space-between or space-evenly; (Main-axis 정렬.)
+align-items: <span class="bold">stretch</span> or center; (Cross-axis 정렬.)
+
+flex-wrap: wrap; (넘치는 Elements 를 어떻게 처리할 것인가?)
+
+gap: ?px / ?em / ?%; (사이 간격, 상하 좌우 순서로. 하나만 쓰면 모든 방향 동일. 개인적으론 em 이나 % 로 설정하는걸 추천.)
+
+flex-grow: <span class="bold">0</span> or 1, 2, 3; (Main-axis 를 어떻게 채울것인가?)
+flex-shrink: <span class="bold">1</span> or 0, 2, 3; (Main-axis 에서 넘치는 Element 를 어떻게 줄일 것인가?)
+flex-basis
+```/
 
 
 
 ### display: grid; (Grid)
 
-가로, 세로를 모두 적용해서 쓰는 표시 (display) 방식.
+가로, 세로를 모두 적용해서 쓰는 표시 (display) 방식. 2차원 정렬. <cite class="ref-grid"></cite>
+
+```
+grid-template-rows: auto auto auto or repeat(3, auto); (행 방향 grid 갯수와 높이 설정.)
+grid-template-columns: 1fr 1fr 1fr or repeat(3, 1fr); (열 방향 grid 갯수와 넓이 설정.)
+grid-template:
+
+gap:
+
+grid-auto-rows:
+grid-auto-columns:
+
+grid-row:
+grid-column:
+span
+
+grid-area:
+grid-template-areas:
+
+```/
 
 
 
@@ -116,15 +150,23 @@ Semantic (의미) &lt;-&gt; Syntax (문법: 보여지는 것)
 
 의미가 담긴 Semantic tag 를 사용하므로서 다른 공동 개발자나 Search Engine 에게 좀 더 해당 페이지에 담긴 내용들을 체계적으로 의미도 담아서 전달하기 때문에 사람이 이해하기도 더 좋고, Search Engine Optimization (SEO) 입장에서도 더 좋다고 생각됩니다. <cite class="ref-semantic"></cite>
 
+추가적으로 시청각 장애인을 배려함에 있어도 이런 Semantic tag 가 도움이 되는 것으로 알고 있습니다.
+
 ```[.lang-html]
 &lt;header&gt;: 영역 위쪽에서 로고나 제목, 메뉴 같은 걸 담고 있는 도입부
 &lt;nav&gt;: 네비게이션 메뉴, GNB (Global Navigation Bar)
 &lt;main&gt;: 사이트의 본격적인 내용으로 페이지에서 딱 한 번만 사용 가능
+&lt;aside&gt;: 옆에 위치하는 콘텐츠를 담는 태그로, 페이지 콘텐츠를 제외한 콘텐츠를 정의. 주로 문서에서 사이드바를 놓기 위해 사용.
 &lt;footer&gt;: 영역 아래쪽에서 여러 가지 연락처나 관련 정보를 담고 있음
 &lt;article&gt;: 하나의 완성된, 독립적인 내용을 나타내는 영역
 &lt;section&gt;: 어떤 것의 일부분을 나타내는 영역
 &lt;figure&gt;: 이미지와, 이미지 설명을 담고 있는 영역
 ```/
+
+<figure><div class="fig">
+	<div class="caption">Semantic HTML (출처: <cite class="ref-semantic-html-image"><a target="_blank" href="https://seo.tbwakorea.com/blog/what-is-semantic-tag/">seo.tbwakorea.com :: 시맨틱 태그 (Semantic Tag)란? – 태그 요소의 종류와 이점</a></cite></div>
+	<img src="https://blog.kakaocdn.net/dn/NK65g/btsIPLsNkdu/DXsmT5vCHzL7ZRkXLF3380/img.webp" alt="Semantic HTML image">
+</div></figure>
 
 
 
@@ -134,6 +176,8 @@ Semantic (의미) &lt;-&gt; Syntax (문법: 보여지는 것)
 <li id="ref-semantic"><a target="_blank" href="https://www.codeit.kr/topics/html-core-concepts/lessons/5747">코드잇 - 의미있는 HTML 정리</a></li>
 <li id="ref-position"><a target="_blank" href="https://www.codeit.kr/topics/css-layout/lessons/5763">코드잇 - Position 정리</a></li>
 <li id="ref-z-index"><a target="_blank" href="https://www.codeit.kr/topics/css-layout/lessons/5761">코드잇 - z-index 가 내맘대로 안될 때</a></li>
+<li id="ref-flex"><a target="_blank" href="https://www.codeit.kr/topics/css-layout/lessons/5780">코드잇 - Flexbox 정리</a></li>
+<li id="ref-grid"><a target="_blank" href="https://www.codeit.kr/topics/css-layout/lessons/5797">코드잇 - Grid 정리</a></li>
 </ol>
 </codeprint><!-- SEE -->
 
@@ -150,7 +194,7 @@ m.delayPad=512;
  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
 **/
 window.disqus_config=function () {
-	this.page.identifier="pure-SEE-copiable"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	this.page.identifier="CSS-에-대해-설명-시맨틱-Semantic-태그를-사용하면-좋은-점"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 	this.page.url=`https://kipid.tistory.com/entry/${this.page.identifier}`; // Replace PAGE_URL with your page's canonical URL variable
 };
 })(window.m, jQuery);
