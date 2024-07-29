@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=3, user-scalable=yes"/>
+
+<codeprint id="docuK-style">
+<div class="docuK rendered"><div class="sec" id="docuK-log"></div></div>
+
+<!-- From kipid.tistory CDN -->
+<script src="https://tistory1.daumcdn.net/tistory/1468360/skin/images/jquery.js"></script>
+<link rel="stylesheet" href="https://tistory1.daumcdn.net/tistory/1468360/skin/images/docuK-2.3.css">
+<script src="https://tistory3.daumcdn.net/tistory/1468360/skin/images/docuK-prepare-2.3.js" charset="utf-8"></script>
+</codeprint><!-- docuK-style -->
+
+<meta charset="utf-8" name="description" content="pure SEE."/>
+
+<codeprint class="SEE">
+# Helper div with display: flex; margin, padding 으로 가로 너비 설정/맞추는 법 정리
+
+<figure><div class="fig">
+	<div class="caption">Responsive width with finitely filling the parent, and I wanna use <code>display: flex;</code> to align elements. <cite class="ref-panda"></cite></div>
+	<div class="rC"><div class="rSC">
+		<video src="https://blog.kakaocdn.net/dn/bsw1Ug/btsISr0nVxo/EmeuWoGddOfI3x4KcOv6uk/tfile.mp4" controls></video>
+	</div></div>
+</div></figure>
+
+위와 같이 가로폭은 적당한 길이만큼만 확장되고, 나머지 안의 것들은 <code>display: flex;</code> 로 정렬하고 싶은데, 코딩을 해보면서 꽤 헤맸던 부분이라 정리할 겸 포스팅.
+
+
+
+## PH
+
+<ul>
+<li>2024-07-30</li>
+</ul>
+
+
+
+## TOC
+
+
+
+## HTML code
+
+```[.lang-html]
+&lt;header&gt;
+	&lt;div class="sub"&gt;
+		&lt;div class="sub-header"&gt;
+			&lt;a href="/"&gt;&lt;img class="logo" src="/images/Property 1=lg.png" alt="판다마켓 Logo image"&gt;&lt;/a&gt;
+			&lt;a href="/login" class="button"&gt;로그인&lt;/a&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/header&gt;
+```/
+
+와 같이 배치했음. 보면 helper div 로 <code>&lt;div class="sub"&gt;</code> 이 추가된 걸 볼 수 있는데... CSS 는 다음과 같음.
+
+```[.lang-css]
+header {
+    height: 70px;
+    position: sticky;
+    z-index: 100;
+    top: 0;
+    background-color: white;
+    border-width: 0 0 1px;
+    border-color: var(--border-color);
+}
+header, main, footer {
+    max-width: 1920px; /* max-width 를 주고 margin:0 auto 로 중앙 정렬. */
+    margin: 0 auto;
+    display: flex; /* Sub elements 들에 대한 정렬을 위해 flex 를 씀. */
+    align-items: center;
+}
+* {
+    box-sizing: border-box;
+}
+
+
+
+.sub {
+    <span class="emph">flex-grow: 1;</span> /* 이게 핵심인데, 이 값은 default 0 이기 때문에 div.sub 의 width 가 fit-content 처럼 되어버려서 전체 width 를 차지하지 못함. 이 값을 1로 줘서 전체 width 를 채우도록 강요. */
+    margin: 0 12.5rem;
+}
+
+
+
+header .sub-header {
+    display: flex; /* 위의 flex-grow 설정으로 안쪽 elements 들의 정렬이 깔끔하게 이어질 수 있음. */
+    justify-content: space-between;
+    align-items: center;
+}
+```/
+
+
+
+## RRA
+
+<ol class="refs">
+<li id="ref-panda"><a target="_blank" href="https://66a7a7a7a7aa150a712ec3d8--kaleidoscopic-platypus-204fe7.netlify.app/">코드잇 과제 - 판다마켓 by kipid</a>, 2024-07-30</li>
+</ol>
+</codeprint><!-- SEE -->
+
+<codeprint id="docuK-script">
+<script>
+(function(m, $, undefined) {
+m.printMode=false;
+m.recoCats="[IT/Programming]--국비 지원 코딩/공부";
+m.wait=1024;
+m.delayPad=512;
+
+/**
+ *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+ *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+**/
+window.disqus_config=function () {
+	this.page.identifier="Helper-div-with-display-flex-margin-padding-으로-가로-너비-설정-맞추는-법-정리"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	this.page.url=`https://kipid.tistory.com/entry/${this.page.identifier}`; // Replace PAGE_URL with your page's canonical URL variable
+};
+})(window.m, jQuery);
+</script>
+
+<!-- From kipid.tistory CDN -->
+<script src="https://tistory3.daumcdn.net/tistory/1468360/skin/images/docuK-postProcess-2.3.js" charset="utf-8"></script>
+</codeprint><!-- docuK-script -->
