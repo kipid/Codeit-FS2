@@ -27,7 +27,7 @@
 
 Cascading: 폭포처럼 떨어지는...
 
-폭포처럼 떨어지는 것처럼 CSS Selector 가 가장 specific (구체적: id, class, tag or postfix (e.g. <code>:hover, :focus, :visited, :nth-child(3), :first-child, ::before, ::after, ::placeholder</code>)) 스타일부터 적용시켜 나가면서 덜 specific 한 CSS Selector 를 순회하면서 스타일을 적용시키는 방법. Cascading 이란 이름이 붙은 이유가 이것 때문이라고 생각 됨.
+폭포가 계단형식으로 떨어지는 것처럼 CSS Selector 가 가장 specific (구체적: id, class, tag or postfix (e.g. <code>:hover, :focus, :visited, :nth-child(3), :first-child, ::before, ::after, ::placeholder</code>) 순으로 금은동 메기듯 더 상위 level) 스타일부터 적용시켜 나가면서 덜 specific 한 CSS Selector 를 순회하면서 스타일을 적용시키는 방법. Cascading 이란 이름이 붙은 이유가 이것 때문이라고 생각 됨.
 
 
 
@@ -36,8 +36,8 @@ Cascading: 폭포처럼 떨어지는...
 HTML 의 기본적인 표시 방식.
 
 <figure><div class="fig">
-	<div class="caption"></div>
-	<img src="" alt="">
+	<div class="caption">Normal Flow <cite class="ref-codeit-normal-flow"><a target="_blank" href="https://www.codeit.kr/topics/css-layout/lessons/5749">코드잇 - Position 속성</a></cite></div>
+	<img src="https://blog.kakaocdn.net/dn/k9WX8/btsIPrO6IXi/ML4B8w2oQxrIkUNMk6awlK/img.png" alt="Normal flow image">
 </div></figure>
 
 
@@ -84,6 +84,8 @@ Browser window 내에 있으면 <code>position: static;</code> 가 비슷하게 
 
 기본 <code>z-index: auto;</code> 로 아래 Elements 들 보다 앞에 위치함에도 자동적으로 젤 위로 올라오려는 성질이 있긴 하나, <code>z-index: 100;</code> 정도로 추가적으로 속성을 적어주는 것이 권장 됨. 아래 요소들이 위쪽으로 덮어 씌워질 확률도 있기 때문.
 
+고정 상태는 컨테이닝 블록의 반대편 모서리를 만나면 해제됩니다.
+
 
 
 #### z-index: &lt;number&gt;
@@ -93,6 +95,20 @@ Elements 들의 앞뒤 순서를 정할 때 쓰는 값. 기본값은 <code>auto<
 z-index 가 내맘대로 안될 때는 다음 글 <cite class="ref-z-index"></cite> 를 참고하세요. (<code>z-index</code> 값은 단순히 서로 비교만 하는 게 아니라, 쌓임 맥락 (Stacking Context) 안에서 비교하기 때문.)
 
 z-index 의 경우에는 position 을 static 으로 하면 안되고 다른 값으로 설정해야합니다. (정확한 답변인지는 확인이 필요!! <code>position: static;</code> 이어도 <code>z-index</code> 적용되는 줄 알았는데 아닌듯?)
+
+```
+&lt;div style="width:100px; height:100px; background-color:red; z-index:100;"&gt;&lt;/div&gt;
+&lt;div style="width:100px; height:100px; background-color:green; position:relative; top:-50px;"&gt;&lt;/div&gt;
+
+구글 크롬 브라우저에서도 다음과 같은 메세지를 보여줌.
+The position: static property prevents z-index from having an effect.
+Try setting position to something other than static.
+```/
+
+<div style="width:100px; height:100px; background-color:red; z-index:100;"></div>
+<div style="width:100px; height:100px; background-color:green; position:relative; top:-50px;"></div>
+
+확인 결과: <code>position: static</code> 일 땐, <code>z-index</code> 가 무시된다. 기본값이 <code>auto</code> 이기 때문인지도?
 
 z-index 는 부모를 벗어날 수 없습니다. 하위 Element 의 z-index 를 아무리 높여도 그건 부모 태그 내에서만 해당됩니다. 이것이 쌓임 맥락 (Stacking Context) 입니다.
 
@@ -124,14 +140,14 @@ flex-basis
 가로, 세로를 모두 적용해서 쓰는 표시 (display) 방식. 2차원 정렬. <cite class="ref-grid"></cite>
 
 ```
-grid-template-rows: auto auto auto or repeat(3, auto); (행 방향 grid 갯수와 높이 설정.)
+grid-template-rows: auto auto auto or repeat(3, auto); / repeat(3, minmax(200px, 1fr)); (행 방향 grid 갯수와 높이 설정.)
 grid-template-columns: 1fr 1fr 1fr or repeat(3, 1fr); (열 방향 grid 갯수와 넓이 설정.)
 grid-template:
 
-gap:
+gap: ?px or ?em or ?%;
 
-grid-auto-rows:
-grid-auto-columns:
+grid-auto-rows: 1 / 2;
+grid-auto-columns: 1 / 3;
 
 grid-row:
 grid-column:
