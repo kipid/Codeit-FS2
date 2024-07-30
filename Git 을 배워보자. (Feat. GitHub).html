@@ -48,6 +48,10 @@ git config user.email "my-email@google.com"
 git add calculator.py
 git add License
 git commit -m "Create calculator.py and License" // commit message (-m)
+
+git status // 현재 상태 보기
+
+git add . // 모든 파일 staging area 로 추가하기
 ```/
 
 Git은 내부적으로 크게 3가지 종류의 작업 영역을 두고 동작
@@ -57,6 +61,34 @@ Git은 내부적으로 크게 3가지 종류의 작업 영역을 두고 동작
 <li>두 번째 작업 영역인 staging area는 git add를 한 파일들이 존재하는 영역입니다. 커밋을 하게되면 staging area에 있는 파일들만 커밋에 반영됩니다.</li>
 <li>세 번째 작업 영역인 repository는 working directory의 변경 이력들이 저장되어 있는 영역입니다. 그러니까 커밋들이 저장되는 영역이라는 뜻인데요. 조금 풀어서 설명해볼게요.</li>
 </ol>
+
+<figure><div class="fig">
+	<div class="caption">새로 생성되거나 편집된 파일을 체크해 줌으로서 git add 효과를 냄. Git -m (message) 도 "Create: Git 을 배워보자" 로 git commit. (Description 은 좀 더 구체적으로 설명을 붙이고 싶을때 쓰임.)</div>
+	<img src="https://blog.kakaocdn.net/dn/PoM43/btsIQy7Oacl/bPtCWt6cN5FQelMEndIj6K/img.png">
+</div></figure>
+
+<figure><div class="fig">
+	<div class="caption">git push 할 준비가 됨. Push origin 으로 외부서버인 GitHub 에 해당 버전의 commit 을 push.</div>
+	<img src="https://blog.kakaocdn.net/dn/bQeLB5/btsISfzhFlE/mN5I1ci2t24zam7fR34s6k/img.png">
+</div></figure>
+
+<figure><div class="fig">
+	<div class="caption">git pushed. GitHub 에 새로운 버전의 commit 이 있었다면 git fetch origin 으로 다운. 새 이미지를 저장해서 git-push.png 가 staging 된 것을 볼 수 있음.</div>
+	<img src="https://blog.kakaocdn.net/dn/bzvyxr/btsIP6cPg19/K7WkBcqXmxOkkuIufKKsn1/img.png">
+</div></figure>
+
+<figure><div class="fig">
+	<div class="caption">Git history 탭에서 그동안 commit 한 git 들을 모아볼 수 있음. 이건 나 혼자써서 branch 가 main 으로 하나지만 협업을 할 때는 branch 가 여러개가 되고 git merge 가 되는 등의 작업이 일어날 수 있음.</div>
+	<img src="https://blog.kakaocdn.net/dn/cAcEOl/btsIRLL6bKV/N56RDix1eNKOu5EWp5m8Ok/img.png">
+</div></figure>
+
+이렇게 GUI (Graphical User Interface) 를 써서 git 을 다루는게 (GitHub 와 같이) 더 배우기도 쉽고 편하긴 한데... 굳이 git command 들을 외우고 Command Line Interface (CLI) 에서 작업해야 하는가가 의문이긴 함. 뭐 여러 복잡스런 작업들은 git command 로만 가능하거나 GUI 로는 더 복잡스러울수도 있을거 같긴 한데... 그럴일이 그렇게 많을거 같지도 않아서...
+
+우선은 수업이 있으니 배워놓긴 할 예정. 안써서 금방 까먹을거 같긴 하지만...
+
+
+
+## 아
 
 
 
@@ -82,7 +114,7 @@ m.delayPad=512;
  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
 **/
 window.disqus_config=function () {
-	this.page.identifier="pure-SEE-copiable"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	this.page.identifier="Git-을-배워보자-Feat-GitHub"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 	this.page.url=`https://kipid.tistory.com/entry/${this.page.identifier}`; // Replace PAGE_URL with your page's canonical URL variable
 };
 })(window.m, jQuery);
