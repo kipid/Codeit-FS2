@@ -130,7 +130,7 @@ gap: ?px / ?em / ?%; (사이 간격, 상하 좌우 순서로. 하나만 쓰면 �
 
 flex-grow: <span class="bold">0</span> or 1, 2, 3; (Main-axis 를 어떻게 채울것인가?)
 flex-shrink: <span class="bold">1</span> or 0, 2, 3; (Main-axis 에서 넘치는 Element 를 어떻게 줄일 것인가?)
-flex-basis
+flex-basis: 기본이 되는 width 나 height (main-axis 따라서). 이 걸 기준으로 grow/shrink 가 일어남.
 ```/
 
 <figure><div class="fig">
@@ -209,7 +209,7 @@ Semantic (의미) &lt;-&gt; Syntax (문법: 보여지는 것)
 <script>
 (function(m, $, undefined) {
 m.printMode=false;
-m.recoCats="";
+m.recoCats="[IT/Programming]--국비 지원 코딩/공부";
 m.wait=1024;
 m.delayPad=512;
 
