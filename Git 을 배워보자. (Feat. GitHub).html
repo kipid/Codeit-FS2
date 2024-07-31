@@ -179,7 +179,7 @@ git log
 
 git log --pretty=oneline
 
-git show commit-hash
+git show [commit-id/hash]
 
 git commit // 긴 commit message 를 남길 수 있음.
 
@@ -232,7 +232,9 @@ git commit --amend // 이전 commit 수정하기.
 
 ```
 git config alias.history 'log --pretty=oneline'
-// git histroy 라고만 써도 자동으로 git log --pretty=oneline 을 실행하게 됩
+// git histroy 라고만 써도 자동으로 git log --pretty=oneline 을 실행하게 됨.
+
+git history
 ```/
 
 
@@ -249,7 +251,7 @@ git diff [커밋 A의 아이디] [커밋 B의 아이디]
 HEAD: 어떤 commit 하나를 가리킴.
 
 ```
-git reset --hard [커밋 아이디] // 과거 commit 으로 아예 돌아가고 싶을 때 (꽤나 위험한 명령어. 뒷쪽 commit 들이 모두 날라감.)
+git reset --hard [커밋 아이디] // 과거 commit 으로 아예 돌아가고 싶을 때 (꽤나 위험한 명령어. 뒷쪽 commit 들이 모두 날라감. 완전히 날라가는건 아니고 git reflog 로만 볼 수 있음.)
 git reset [option] HEAD^ // 이전 commit
 git reset [option] HEAD~n // n번째 전 commit
 ```/
@@ -282,7 +284,7 @@ git reset --mixed [커밋 아이디]
 
 계속 git add 를 할 때마다 staging area 에서는 새로운 파일이 추가되거나 원래 있던 파일이 더 새로운 버전의 것으로 교체되거나 할 뿐입니다.
 
-staging area 에 있던 것들은 커밋을 하더라도 그것과 상관없이 계속 남아있다는 점
+staging area 에 있던 것들은 커밋을 하더라도 그것과 상관없이 계속 남아있다는 점.
 
 
 
@@ -622,13 +624,13 @@ git diff premium origin/premium // 두 local branch 와 remote branch 를 비교
 
 file 의 각 부분이 어떤 commit 으로 수정되었는지 보여주는 명령어.
 
-(이건 GitHub GUI (Graphical User Interface) 에서 잘 못봤던거 같은데, 찾아봐야겠음.)
+(이건 GitHub GUI (Graphical User Interface) 에서 잘 못봤던거 같은데, 찾아봐야겠음.) :: GitHub.com file page 에서 blame 이란 옵션이 왼쪽 위에 있는듯. 그걸 클릭하면 file 의 각 부분이 어떤 commit 으로 수정되었는지 보여줌.
 
 
 
 ### git show [commit id]
 
-commit 의 내용 (file 의 변화된 부분, commit message 등) 보여주기
+commit 의 내용 (file 의 변화된 부분, commit message 등) 보여주기.
 
 
 
@@ -677,7 +679,7 @@ branch 도 같이 표현해주면서 예쁘게 git history 를 보여주는 명�
 
 ## Git GUI (Graphical User Interface): SourceTree
 
-SourceTree <cite class="ref-sourcetree"></cite> 란 Git GUI 가 있다는거 같음. GitHub Desktop 도 좋긴 하던데, 두 프로그램의 장단점이 있긴 할 듯. 둘 다 깔아서 사용해 볼 예정.
+SourceTree <cite class="ref-sourcetree"><a target="_blank" href="https://www.sourcetreeapp.com/">https://www.sourcetreeapp.com/</a></cite> 란 Git GUI 가 있다는거 같음. GitHub Desktop 도 좋긴 하던데, 두 프로그램의 장단점이 있긴 할 듯. 둘 다 깔아서 사용해 볼 예정.
 
 
 
@@ -1095,7 +1097,9 @@ git merge --abort : 머지를 하다가 conflict가 발생했을 때, 일단은 
 <div class="bcf">
 
 git fetch : 로컬 레포지토리에서 현재 HEAD가 가리키는 브랜치의 업스트림(upstream) 브랜치로부터 최신 커밋들을 가져옴(가져오기만 한다는 점에서, 가져와서 머지까지 하는 git pull과는 차이가 있음)
+
 git blame : 특정 파일의 내용 한줄한줄이 어떤 커밋에 의해 생긴 것인지 출력
+
 git revert : 특정 커밋에서 이루어진 작업을 되돌리는(취소하는) 커밋을 새로 생성
 
 </div>
@@ -1141,6 +1145,16 @@ git cherry-pick [커밋 아이디] : 특정 커밋의 내용을 현재 커밋에
 자, Git 토픽에서 배운 커맨드들을 쭉 정리해봤는데요. 기억이 다 잘 나시나요? 이 커맨드들만 제대로 이해하고 사용해도 여러분이 어디에서 어떤 일을 하든 Git을 사용할 때 불편함이 없을 겁니다. 혹시라도 Git으로 아주 세밀한 작업 또는 여기서 배우지 않은 새로운 커맨드를 써야한다고 할지라도 겁낼 필요가 없습니다. 이 토픽에서는 커맨드 뿐만 아니라 Git의 내부 동작 원리도 제대로 배웠기 때문에 여러분이 조금만 노력하면 그런 것들도 금방 쉽게 할 수 있을 겁니다.
 
 이제 어디를 가도 '나 Git 쓸 줄 알아!' 라고 자신있게 말할 수 있게 되신 여러분, 축하합니다!
+
+
+
+## 추신 (코드 리뷰 시스템: Gerrit)
+
+코드 리뷰 시스템인 Gerrit 도 설치하고 공부해 볼만함. (구글에서 만든 code review framework 인거 같음.) <cite class="ref-gerrit"><a target="_blank" href="https://gerrit-review.googlesource.com/Documentation/">https://gerrit-review.googlesource.com/Documentation/</a></cite>
+
+3개월간 Intern 을 했던 Skelter Labs 란 회사에서 쓰던 시스템인데, git commit 한걸 가지고 변경된 사항마다 이러이러한 부분이 수정이 필요한거 같단 리뷰/코멘트를 Graphical 하게 써서 리뷰를 보내줄 수 있고. 그 수정부분을 반영해서 다시 리뷰를 요청하고, 다시 리뷰 받고를 반복. 리뷰를 통과해야만 main branch 에 리뷰가 다 된 commit 들이 하나로 통합된 commit 하나가 merge 되는 시스템이었던 걸로 기억함.
+
+리눅스 서버에 깔아야 하는거 같긴한데... 큰 회사나 스타트업들이 구축해놓으면 꽤 좋은거 같음.
 
 
 
