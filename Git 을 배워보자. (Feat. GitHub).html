@@ -17,7 +17,7 @@
 <codeprint class="SEE">
 # Git 을 배워보자. (Feat. GitHub)
 
-버전 관리와 협업에 필수인 Git (and GitHub) 에 대해 배워봅시다.
+버전 관리와 협업에 필수인 Git (and GitHub) 에 대해 배워봅시다. <cite class="ref-codeit-git"></cite>
 
 
 
@@ -65,10 +65,14 @@ git help add // Manual 보기
 Git은 내부적으로 크게 3가지 종류의 작업 영역을 두고 동작
 
 <ol>
-<li>첫 번째 작업 영역인 working directory는 작업을 하는 프로젝트 디렉토리를 말합니다. 그러니까 지금 상황에서는 MathTool 디렉토리가 working directory입니다.</li>
-<li>두 번째 작업 영역인 staging area는 git add를 한 파일들이 존재하는 영역입니다. 커밋을 하게되면 staging area에 있는 파일들만 커밋에 반영됩니다.</li>
-<li>세 번째 작업 영역인 repository는 working directory의 변경 이력들이 저장되어 있는 영역입니다. 그러니까 커밋들이 저장되는 영역이라는 뜻인데요. 조금 풀어서 설명해볼게요.</li>
+<li>첫 번째 작업 영역인 working directory 는 작업을 하는 프로젝트 디렉토리를 말합니다. 그러니까 지금 상황에서는 MathTool 디렉토리가 working directory 입니다.</li>
+<li>두 번째 작업 영역인 staging area 는 git add 를 한 파일들이 존재하는 영역입니다. 커밋을 하게되면 staging area 에 있는 파일들만 커밋에 반영됩니다.</li>
+<li>세 번째 작업 영역인 repository 는 working directory 의 변경 이력들이 저장되어 있는 영역입니다. 그러니까 커밋들이 저장되는 영역이라는 뜻입니다. (보통 .git 폴더를 나타내기도 하고, .git 폴더 포함 working directory 전체를 이야기하기도 하는듯.)</li>
 </ol>
+
+
+
+### GitHub Desktop (GUI: Graphical User Interface)
 
 <figure><div class="fig">
 	<div class="caption">새로 생성되거나 편집된 파일을 체크해 줌으로서 git add 효과를 냄. Git -m (message) 도 "Create: Git 을 배워보자" 로 git commit. (Description 은 좀 더 구체적으로 설명을 붙이고 싶을때 쓰임.)</div>
@@ -93,6 +97,12 @@ Git은 내부적으로 크게 3가지 종류의 작업 영역을 두고 동작
 이렇게 GUI (Graphical User Interface) 를 써서 git 을 다루는게 (GitHub 와 같이) 더 배우기도 쉽고 편하긴 한데... 굳이 git command 들을 외우고 Command Line Interface (CLI) 에서 작업해야 하는가가 의문이긴 함. 뭐 여러 복잡스런 작업들은 git command 로만 가능하거나 GUI 로는 더 복잡스러울수도 있을거 같긴 한데... 그럴일이 그렇게 많을거 같지도 않아서...
 
 우선은 수업이 있으니 배워놓긴 할 예정. 안써서 금방 까먹을거 같긴 하지만...
+
+<div class="cmt">
+
+p.s. 수업을 다 듣고 나니 배우는건 좀 많은듯. 이러한 기능들도 있었구나를 느꼈고, 더 잘 GitHub 를 활용할 수 있을거 같음.
+
+</div>
 
 
 
@@ -662,6 +672,475 @@ git reflog // reference log, reset 이전/이후의 commit 들도 보기
 ## git log --pretty=oneline --all --graph
 
 branch 도 같이 표현해주면서 예쁘게 git history 를 보여주는 명령어.
+
+
+
+## Git GUI (Graphical User Interface): SourceTree
+
+SourceTree <cite class="ref-sourcetree"></cite> 란 Git GUI 가 있다는거 같음. GitHub Desktop 도 좋긴 하던데, 두 프로그램의 장단점이 있긴 할 듯. 둘 다 깔아서 사용해 볼 예정.
+
+
+
+## 깔끔한 커밋 히스토리를 원할 땐 git merge 대신 git rebase [branch name]
+
+```
+git rebase [branch name]
+
+git rebase --continue // Conflict 가 발생해서 제대로 진행되지 못한 rebase 를 계속 진행하라
+```/
+
+merge 보다 commit history 가 더 깔끔하단 장점이 있음.
+
+상황에 따라 git rebase, git merge 를 잘 활용합시다.
+
+
+
+## git stash: 작업 내용 임시 저장하기
+
+```
+git stash // 작업했던/수정했던 파일들을 stack 에 잠기 옮겨둠
+git stash list
+
+git stash apply // 작업했던/수정했던 파일들을 복구
+```/
+
+
+
+### 잘못된 브랜치에서 작업하고 있었다면?
+
+```
+git checkout main
+git stash
+git checkout premium
+git stash apply // 다른 branch 에서도 stash apply 를 쓸 수 있음. 작업 내용의 아이디를 생략하면 가장 최근의 작업 내용이 적용됨.
+
+git stash list
+// stash@{0}: WIP on master: 75282b7 Add free License duration info
+// stash@{1}: WIP on premium: 84e67c3 Add get_Remainder function
+
+git stash apply stash@{0} // 특정 stash 를 적용하고 싶을 때.
+git stash drop stash@{0} // 이미 stash apply 를 하고 commit 을 했다면 stash stack 에서 지워줍시다.
+
+
+
+git stash pop [작업 내용의 아이디] // git stash apply 를 해주고 바로 git stash drop 을 해줌. [작업 내용의 아이디] 가 없다면 제일 최근의 stash 에 적용.
+```/
+
+일반적으로 <strong>git stash pop</strong> 이 주로 더 많이 사용됨.
+
+
+
+## 필요한 커밋만 가져오는 git cherry-pick
+
+다른 branch 의 더 오래된 commit 을 가져다 오고 싶을때 주로 쓰임.
+
+```
+git cherry-pick [commit id]
+```/
+
+
+## 여러 커밋을 하나의 커밋으로 만들기 (심화)
+
+```
+git reset --soft [commit id] // 없애고 싶은 자잘한 commit 들이 있을때 reset to last commit with --soft option.
+git add .
+git commit -m "Message"
+```/
+
+
+
+## .gitignore: git 이 무시하는 파일들
+
+굳이 Git 에 의해 버전 관리될 필요가 없는, 불필요한 파일들의 이름을 정리하여 .gitignore 파일을 생성.
+
+<div class="bcf">
+
+버전 관리를 할 정도의 가치가 없고,
+
+오히려 버전 관리를 하면 용량만 더 차지하고,
+
+나중에 각 버전을 살펴볼 때 가독성을 떨어뜨리기만 하기 때문에
+
+</div>
+
+
+
+그런데 먼저 commit 을 한 후에 .gitignore 에 추가를 하면, file 들이 계속 추적되는 경우가 있다. 이 경우 아래와 같은 명령어를 치면 되는듯 하다. <cite class="ref-kipid-gitignore"><a target="_blank" href="https://kipid.tistory.com/entry/gitignore-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0">.gitignore 설정하기</a></cite>
+
+```
+git rm -r --cached .
+git add .
+git commit -m "Apply .gitignore"
+```/
+
+
+
+예:
+
+```[.scrollable]
+# .gitignore
+### Vert.x ###
+.vertx/
+
+### Eclipse ###
+
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# PyDev specific (Python IDE for Eclipse)
+*.pydevproject
+
+# CDT-specific (C/C++ Development Tooling)
+.cproject
+
+# Java annotation processor (APT)
+.factorypath
+
+# PDT-specific (PHP Development Tools)
+.buildpath
+
+# sbteclipse plugin
+.target
+
+# Tern plugin
+.tern-project
+
+# TeXlipse plugin
+.texlipse
+
+# STS (Spring Tool Suite)
+.springBeans
+
+# Code Recommenders
+.recommenders/
+
+# Scala IDE specific (Scala & Java development for Eclipse)
+.cache-main
+.scala_dependencies
+.worksheet
+
+### Intellij+iml ###
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# User-specific stuff:
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
+
+# Sensitive or high-churn files:
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.xml
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+
+# Gradle:
+.idea/**/gradle.xml
+.idea/**/libraries
+
+# CMake
+cmake-buildTool-debug/
+
+# Mongo Explorer plugin:
+.idea/**/mongoSettings.xml
+
+## File-based project format:
+*.iws
+
+## Plugin-specific files:
+
+# IntelliJ
+/out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Cursive Clojure plugin
+.idea/replstate.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-buildTool.properties
+fabric.properties
+
+### Intellij+iml Patch ###
+# Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023
+
+*.iml
+modules.xml
+.idea/misc.xml
+*.ipr
+
+### macOS ###
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+!/.mvn/wrapper/maven-wrapper.jar
+
+### Gradle ###
+.gradle
+/buildTool/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
+
+### NetBeans ###
+nbproject/private/
+buildTool/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Sublime text
+*.sublime-workspace
+*.sublime-project
+
+*.log
+*.mdmp
+
+build/distributions/http-1.0.0-SNAPSHOT.tar
+build/distributions/http-1.0.0-SNAPSHOT.zip
+build/libs/http-1.0.0-SNAPSHOT-fat.jar
+build/libs/http-1.0.0-SNAPSHOT.jar
+build/distributions/http-shadow-1.0.0-SNAPSHOT.tar
+build/distributions/http-shadow-1.0.0-SNAPSHOT.zip
+cmder/config/*
+cmder/vendor/conemu-maximus5/ConEmu.xml
+```/
+
+
+
+## Git 토픽 내용 총정리
+
+자, 이제 마지막 챕터까지 모든 내용을 마쳤습니다. 이때까지 배운 Git 커맨드를 챕터별로 한눈에 살펴볼까요? <cite class="ref-git-summary"><a target="_blank" href="https://www.codeit.kr/topics/git/lessons/2954">코드잇 :: Git - 14. Git 토픽 내용 총정리</a></cite>
+
+
+
+### Git 써보기
+
+<div class="bcf">
+
+git init : 현재 디렉토리를 Git이 관리하는 프로젝트 디렉토리(=working directory)로 설정하고 그 안에 레포지토리(.git 디렉토리) 생성
+
+git config user.name 'codeit' : 현재 사용자의 아이디를 'codeit'으로 설정(커밋할 때 필요한 정보)
+
+git config user.email 'teacher@codeit.kr' : 현재 사용자의 이메일 주소를 'teacher@codeit.kr'로 설정(커밋할 때 필요한 정보)
+
+git add [파일 이름] : 수정사항이 있는 특정 파일을 staging area에 올리기
+
+git add [디렉토리명] : 해당 디렉토리 내에서 수정사항이 있는 모든 파일들을 staging area에 올리기
+
+git add . : working directory 내의 수정사항이 있는 모든 파일들을 staging area에 올리기
+
+git reset [파일 이름] : staging area에 올렸던 파일 다시 내리기
+
+git status : Git이 현재 인식하고 있는 프로젝트 관련 내용들 출력(문제 상황이 발생했을 때 현재 상태를 파악하기 위해 활용하면 좋음)
+
+git commit -m "커밋 메시지" : 현재 staging area에 있는 것들 커밋으로 남기기
+
+git help [커맨드 이름] : 사용법이 궁금한 Git 커맨드의 공식 메뉴얼 내용 출력
+
+</div>
+
+
+
+### GitHub 시작하기
+
+<div class="bcf">
+
+git push -u(또는 --set-upstream) origin master : 로컬 레포지토리의 내용을 처음으로 리모트 레포지토리에 올릴 때 사용합니다.
+
+git push : 위의 커맨드를 한번 실행하고 난 후에는 git push라고만 쳐도 로컬 레포지토리의 내용을 리모트 레포지토리에 올릴 수 있습니다.
+
+git pull : 바로 위의 위에 있는 커맨드를 한번 실행하고 난 후에는 git pull이라고만 쳐도 리모트 레포지토리의 내용을 로컬 레포지토리로 가져옵니다.
+
+git clone [프로젝트의 GitHub 상 주소] : GitHub에 있는 프로젝트를 내 컴퓨터로 가져오기
+
+</div>
+
+
+
+### Git에서 커밋 다루기
+
+<div class="bcf">
+
+git log : 커밋 히스토리를 출력
+
+git log --pretty=oneline : --pretty 옵션을 사용하면 커밋 히스토리를 다양한 방식으로 출력할 수 있습니다. --pretty 옵션에 oneline이라는 값을 주면 커밋 하나당 한 줄씩 출력해줍니다. --pretty 옵션에 대해 더 자세히 알고싶으면 <a target="_blank" href="https://git-scm.com/docs/pretty-formats">이 링크</a>를 참고하세요.
+
+git show [커밋 아이디] : 특정 커밋에서 어떤 변경사항이 있었는지 확인
+
+git commit --amend : 최신 커밋을 다시 수정해서 새로운 커밋으로 만듦
+
+git config alias.[별명] [커맨드] : 길이가 긴 커맨드에 별명을 붙여서 이후로는 별명으로도 해당 커맨드를 실행할 수 있게 설정
+
+git diff [커밋 A의 아이디] [커밋 B의 아이디] : 두 커밋 간의 차이 비교
+
+git reset [옵션] [커밋 아이디] : 옵션에 따라 하는 작업이 달라짐(옵션을 생략하면 --mixed 옵션이 적용됨)
+
+<div class="cmt">
+
+(1) HEAD가 특정 커밋을 가리키도록 이동시킴(--soft는 여기까지 수행)
+
+(2) staging area도 특정 커밋처럼 리셋(--mixed는 여기까지 수행)
+
+(3) working directory도 특정 커밋처럼 리셋(--hard는 여기까지 수행)
+
+그리고 이때 커밋 아이디 대신 HEAD의 위치를 기준으로 한 표기법(예 : HEAD^, HEAD~3)을 사용해도 됨
+
+</div>
+
+git tag [태그 이름] [커밋 아이디] : 특정 커밋에 태그를 붙임
+
+</div>
+
+
+
+### Git에서 브랜치 사용하기
+
+<div class="bcf">
+
+git branch [새 브랜치 이름] : 새로운 브랜치를 생성
+
+git checkout -b [새 브랜치 이름] : 새로운 브랜치를 생성하고 그 브랜치로 바로 이동
+
+git branch -d [기존 브랜치 이름] : 브랜치 삭제
+
+git checkout [기존 브랜치 이름] : 그 브랜치로 이동
+
+git merge [기존 브랜치 이름] : 현재 브랜치에 다른 브랜치를 머지
+
+git merge --abort : 머지를 하다가 conflict가 발생했을 때, 일단은 머지 작업을 취소하고 이전 상태로 돌아감
+
+</div>
+
+
+
+### Git 실전
+
+<div class="bcf">
+
+git fetch : 로컬 레포지토리에서 현재 HEAD가 가리키는 브랜치의 업스트림(upstream) 브랜치로부터 최신 커밋들을 가져옴(가져오기만 한다는 점에서, 가져와서 머지까지 하는 git pull과는 차이가 있음)
+git blame : 특정 파일의 내용 한줄한줄이 어떤 커밋에 의해 생긴 것인지 출력
+git revert : 특정 커밋에서 이루어진 작업을 되돌리는(취소하는) 커밋을 새로 생성
+
+</div>
+
+
+
+### Git 실전 Ⅱ
+
+<div class="bcf">
+
+git reflog : HEAD가 그동안 가리켜왔던 커밋들의 기록을 출력
+
+git log --all --graph : 모든 브랜치의 커밋 히스토리를, 커밋 간의 관계가 잘 드러나도록 그래프 형식으로 출력
+
+git rebase [브랜치 이름] : A, B 브랜치가 있는 상태에서 지금 HEAD가 A 브랜치를 가리킬 때, git rebase B를 실행하면 A, B 브랜치가 분기하는 시작점이 된 공통 커밋 이후로부터 존재하는 A 브랜치 상의 커밋들이 그대로 B 브랜치의 최신 커밋 이후로 이어붙여짐(git merge와 같은 효과를 가지지만 커밋 히스토리가 한 줄로 깔끔하게 된다는 차이점이 있음)
+
+git stash : 현재 작업 내용을 스택 영역에 저장
+
+git stash apply [커밋 아이디] : 스택 영역에 저장된 가장 최근의(혹은 특정) 작업 내용을 working directory에 적용
+
+git stash drop [커밋 아이디] : 스택 영역에 저장된 가장 최근의(혹은 특정) 작업 내용을 스택에서 삭제
+
+git stash pop [커밋 아이디] : 스택 영역에 저장된 가장 최근의(혹은 특정) 작업 내용을 working directory에 적용하면서 스택에서 삭제
+
+git cherry-pick [커밋 아이디] : 특정 커밋의 내용을 현재 커밋에 반영
+
+<div class="cmt">
+
+! 그 밖에 알아야할 사실
+
+(1) git commit이라고만 쓰고 실행하면 커밋 메시지를 입력할 수 있는 텍스트 에디터 창이 뜹니다. 거기서 커밋 메시지를 입력하고 저장하고 나면 커밋이 이루어집니다.
+
+(2) git push와 git pull은 그 작업 단위가 브랜치입니다. 예를 들어, master 브랜치에서 git push를 하면 master 브랜치의 내용만 리모트 레포지토리의 master 브랜치로 전송되지, premium 브랜치의 내용이 전송되는 것은 아닙니다.(git push에 --all이라는 옵션을 주면 모든 브랜치의 내용을 전송할 수 있기는 합니다.)
+
+</div>
+
+</div>
+
+
+
+### 마무리
+
+자, Git 토픽에서 배운 커맨드들을 쭉 정리해봤는데요. 기억이 다 잘 나시나요? 이 커맨드들만 제대로 이해하고 사용해도 여러분이 어디에서 어떤 일을 하든 Git을 사용할 때 불편함이 없을 겁니다. 혹시라도 Git으로 아주 세밀한 작업 또는 여기서 배우지 않은 새로운 커맨드를 써야한다고 할지라도 겁낼 필요가 없습니다. 이 토픽에서는 커맨드 뿐만 아니라 Git의 내부 동작 원리도 제대로 배웠기 때문에 여러분이 조금만 노력하면 그런 것들도 금방 쉽게 할 수 있을 겁니다.
+
+이제 어디를 가도 '나 Git 쓸 줄 알아!' 라고 자신있게 말할 수 있게 되신 여러분, 축하합니다!
 
 
 
