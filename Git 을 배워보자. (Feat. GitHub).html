@@ -52,6 +52,14 @@ git commit -m "Create calculator.py and License" // commit message (-m)
 git status // 현재 상태 보기
 
 git add . // 모든 파일 staging area 로 추가하기
+
+git reset calculator.py // staging area 에서 제거하기
+
+git reset . // 모든 파일 staging area 에서 제거
+
+
+
+git help add // Manual 보기
 ```/
 
 Git은 내부적으로 크게 3가지 종류의 작업 영역을 두고 동작
@@ -88,7 +96,160 @@ Git은 내부적으로 크게 3가지 종류의 작업 영역을 두고 동작
 
 
 
-## 아
+## Git commands 정리
+
+```
+git init : 현재 디렉토리를 Git이 관리하는 프로젝트 디렉토리(=working directory)로 설정하고 그 안에 레포지토리(.git 디렉토리) 생성
+git config user.name 'codeit' : 현재 사용자의 아이디를 'codeit'으로 설정(커밋할 때 필요한 정보)
+git config user.email 'teacher@codeit.kr' : 현재 사용자의 이메일 주소를 'teacher@codeit.kr'로 설정(커밋할 때 필요한 정보)
+git add [파일 이름] : 수정사항이 있는 특정 파일을 staging area에 올리기
+git add [디렉토리명] : 해당 디렉토리 내에서 수정사항이 있는 모든 파일들을 staging area에 올리기
+git add . : working directory 내의 수정사항이 있는 모든 파일들을 staging area에 올리기
+git reset [파일 이름] : staging area에 올렸던 파일 다시 내리기
+git status : Git이 현재 인식하고 있는 프로젝트 관련 내용들 출력(문제 상황이 발생했을 때 현재 상태를 파악하기 위해 활용하면 좋음)
+git commit -m "커밋 메시지" : 현재 staging area에 있는 것들 커밋으로 남기기
+git help [커맨드 이름] : 사용법이 궁금한 Git 커맨드의 공식 메뉴얼 내용 출력
+```/
+
+
+
+## GitHub 와의 연계
+
+```
+git remote add origin https://github.com/kipid/Example_Repository.git
+git push -u origin master
+// Id 비번으로 인증. github 패스워드가 아닌 토큰(token)을 입력.
+
+git commit -m "Message"
+git push
+
+git pull // remote repository 에 있는 commit 들 가져오기.
+```/
+
+
+
+### 다른 사람도 내 repository 에 git push 할 수 있게 만들기
+
+상단의 여러 탭 중에서 Settings 탭을 클릭하세요. 그 다음 화면 왼쪽의 Manage access 탭을 클릭.
+
+Invite a collaborator =&gt; Add ... to Example_Repository
+
+
+
+## 다른 사람의 repository 내 컴퓨터로 가져오기
+
+```
+git clone https://github.com/numpy/numpy.git
+
+
+
+git push -u origin master : 로컬 레포지토리의 내용을 처음으로 리모트 레포지토리에 올릴 때 사용합니다.(-u origin master가 무슨 뜻인지는 'Git에서 브랜치 사용하기' 챕터에서 배울 거니까 걱정마세요!)
+git push : 로컬 레포지토리의 내용을 리모트 레포지토리에 보내기
+git pull : 리모트 레포지토리의 내용을 로컬 레포지토리로 가져오기
+git clone [프로젝트의 GitHub 상 주소] : GitHub에 있는 프로젝트를 내 컴퓨터로 가져오기
+```/
+
+
+
+## Git history
+
+```
+git log
+
+git log --pretty=oneline
+
+git show commit-hash
+
+git commit // 긴 commit message 를 남길 수 있음.
+
+git commit --amend // 이전 commit 수정하기.
+```/
+
+
+
+## 커밋 메시지 작성 가이드라인
+
+(1) 커밋 메시지의 제목과 상세 설명 사이에는 한 줄을 비워두세요.
+
+(2) 커밋 메시지의 제목 뒤에 온점(.)을 붙이지 마세요.
+
+(3) 커밋 메시지의 제목의 첫 번째 알파벳은 대문자로 작성하세요.
+
+(4) 커밋 메시지의 제목은 명령조로 작성하세요.(Fix it / <s>Fixed it / Fixes it</s>)
+
+(5) 커밋의 상세 내용에는 이런 걸 적으면 좋습니다.
+
+<ul>
+<li>왜 커밋을 했는지</li>
+<li>어떤 문제가 있었고</li>
+<li>적용한 해결책이 어떤 효과를 가지는지</li>
+</ul>
+
+(6) 다른 사람들이 자신의 코드를 바로 이해할 수 있다고 가정하지 말고 최대한 친절하게 작성하세요.
+
+
+
+## 커밋할 때 알아야할 가이드라인
+
+(1) 하나의 커밋에는 하나의 수정사항, 하나의 이슈(issue)를 해결한 내용만 남기도록 하세요. 다양하게 수정을 하고나서 하나의 커밋으로 남기는 것은 좋지 않습니다. 하나의 커밋이 하나의 사실만을 갖고 있어야 나중에 이해하기 쉽습니다.
+
+(2) 현재 프로젝트 디렉토리의 상태가 그 내부의 전체 코드를 실행했을 때 에러가 발생하지 않는 상태인 경우에만 커밋을 하도록 하세요. 나중에 동료 개발자가 특정 커밋의 코드로 실행했을 때 에러가 발생한다면 혼란을 줄 수 있습니다.
+
+<ul>
+<li>나중에 다시 봤을 때 이해하는데 어려움이 없도록</li>
+<li>다른 동료 개발자와 협업하는 데 방해가 되지 않도록</li>
+</ul>
+
+
+
+## 긴 커맨드에 alias 설정하기
+
+```
+git config alias.history 'log --pretty=oneline'
+// git histroy 라고만 써도 자동으로 git log --pretty=oneline 을 실행하게 됩
+```/
+
+
+## 두 commit 간의 차이 보기
+
+```
+git diff [커밋 A의 아이디] [커밋 B의 아이디]
+```/
+
+
+
+## HEAD (이전 commit 으로 git reset 하기)
+
+HEAD: 어떤 commit 하나를 가리킴.
+
+```
+git reset --hard [커밋 아이디] // 과거 commit 으로 아예 돌아가고 싶을 때
+```/
+
+
+
+### git reset을 쓸 때 --hard는 뭐였을까?
+
+```
+git reset --hard [커밋 아이디]
+git reset --soft [커밋 아이디]
+git reset --mixed [커밋 아이디]
+```/
+
+<figure><div class="fig">
+	<div class="caption">git reset [옵션] [Commit ID]</div>
+	<img src="https://blog.kakaocdn.net/dn/cvCon0/btsISJmMTd6/JeOXJjkJwloP4XPkrzvZyK/img.png">
+</div></figure>
+
+
+
+### staging area 에 있던 것들은 커밋하고 나면 어떻게 될까?
+
+커밋을 했다고 staging area 가 초기화되거나 하지는 않는 겁니다.
+
+계속 git add 를 할 때마다 staging area 에서는 새로운 파일이 추가되거나 원래 있던 파일이 더 새로운 버전의 것으로 교체되거나 할 뿐입니다.
+
+staging area 에 있던 것들은 커밋을 하더라도 그것과 상관없이 계속 남아있다는 점
 
 
 
@@ -105,7 +266,7 @@ Git은 내부적으로 크게 3가지 종류의 작업 영역을 두고 동작
 <script>
 (function(m, $, undefined) {
 m.printMode=false;
-m.recoCats="";
+m.recoCats="[IT/Programming]--국비 지원 코딩/공부";
 m.wait=1024;
 m.delayPad=512;
 
