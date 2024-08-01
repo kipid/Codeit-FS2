@@ -15,7 +15,7 @@
 <meta charset="utf-8" name="description" content="pure SEE."/>
 
 <codeprint class="SEE">
-# Git 협업하기 (Collaboration with Git)
+# Git 협업하기 (Collaboration with Git and GitHub)
 
 
 
@@ -59,13 +59,129 @@ git push -u origin main
 
 ## Pull Request
 
+리뷰 요청 보내기.
+
 
 
 ## 코드 리뷰 (Code Review)
 
+GitHub 에서 코드 리뷰하는 방법은 그림 파일과 같이 설명을 해야할거 같아서 우선은 패스.
+
+다른 좋은 정리된 포스트가 있으면 refer 할 예정.
+
+커밋 메시지는 <code class="prettyprint">&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;</code> 의 형식을 따르게 됩니다. 여기서 <code>type</code> 은 커밋의 종류를, <code>scope</code> 는 커밋이 영향을 미치는 범위를 나타내고 <code>subject</code> 에는 커밋의 간략한 설명을 적습니다.
+
+<div class="bcf">
+
+<div class="p">
+<strong>type : 설명</strong>
+</div>
+
+feat : 기능 개발과 관련
+
+docs : 주석/ReadMe 등 문서화 관련
+
+test : 테스트 관련
+
+fix : 버그나 typo 등을 수정 사항 관련
+
+chore : 코드와 관련이 없는 내용들을 수정할 때 (License 등)
+
+ci : CI/CD 등과 관련한 작업을 수행할 때
+
+</div>
+
 
 
 ## 브랜치 관리 전략 (Branch Management Strategy)
+
+### 메인 브랜치에서 새로운 브랜치 생성
+
+<div class="bcf">
+
+새로운 기능 개발, 버그 수정, 문서 업데이트 등 어떤 작업을 시작할 때는 이 메인 브랜치로부터 새로운 브랜치를 생성합니다.
+
+브랜치의 이름은 작업의 내용을 명확히 알 수 있게 직관적으로 지정하는 것이 좋습니다. 예시: <code>fix/login-issue</code>, <code>feat/add-user-profile</code>
+
+메인 브랜치는 개발자들이 실수하지 않도록 브랜치 보호 룰을 설정하는 것이 좋습니다.
+
+Settings &gt; Branches &gt; Add rule &gt; Require a pull request before merging 을 설정하면 팀원의 Approve 를 받지 않으면 머지할 수 없습니다.
+
+</div>
+
+
+
+### Pull Request 생성
+
+<div class="bcf">
+
+작업이 완료되면, GitHub에서 해당 브랜치에 대한 Pull Request를 생성합니다.
+
+Pull Request에는 작업의 내용, 변경 사항, 관련 이슈 등을 명시하여 리뷰어가 이해하기 쉽게 합니다.
+
+</div>
+
+
+
+### 코드 리뷰
+
+<div class="bcf">
+
+팀원들은 Pull Request에 제안된 변경 사항을 리뷰하고 의견이나 수정 요청을 남길 수 있습니다.
+
+필요한 경우 추가적인 수정 및 커밋을 통해 Pull Request 를 갱신합니다.
+
+코드 리뷰 문화를 만들기 위해 모든 conversation 이 완료됐을 때 머지 가능하도록 브랜치 보호 룰을 설정하는 것이 좋습니다.
+
+Settings &gt; Branches &gt; Add rule &gt; Require conversation resolution before merging 설정을 키게 되면 코드 리뷰 코멘트들이 모두 resolve되어야 PR을 Merge할 수 있습니다.
+
+</div>
+
+
+
+### 머지 (Merge)
+
+<div class="bcf">
+
+모든 수정 사항이 반영되면 머지를 수행합니다.
+
+이미 해당 브랜치의 기능을 다했으므로 필요없어진 브랜치는 삭제합니다.
+
+GitHub &gt; Settings &gt; General &gt; Automatically delete head branches 에서 Pull Request 가 머지됐을 때 브랜치를 삭제하도록 설정 할 수 있습니다.
+
+</div>
+
+
+
+### Feature 에 관해 잘 정의 되지 않은 경우
+
+<div class="bcf">
+
+명확하고 구체적이어야 한다. Feature 를 정의할 때는 가능한 구체적으로 정의해야 합니다. 예를 들어 "사용자 인터페이스 개선"보다는 "로그인 버튼의 디자인 변경"이 더 구체적으로 Feature 를 정의한 것입니다.
+
+독립적으로 배포 가능해야 한다. 각 Feature 는 독립적으로 배포될 수 있어야 합니다. 이는 해당 Feature 가 완성되면 즉시 사용자에게 제공될 수 있어야 한다는 것을 의미합니다.
+
+배포 시점에 문제가 발생하지 않아야 한다. Feature 는 다른 부분의 코드와 호환되어야 합니다. 즉, 해당 Feature 를 배포했을 때 시스템 전체에 문제가 발생하지 않아야 합니다.
+
+사이즈를 적절하게 유지해야 한다. 너무 큰 Feature 는 개발과 테스트에 많은 시간이 소요될 수 있습니다. 반면, 너무 작은 Feature 는 관리를 힘들게 합니다. 적절한 크기의 Feature 를 정의하는 것이 중요합니다.
+
+</div>
+
+
+
+### CI (Continuous Integration)
+
+코드 변경 사항이 통합될 때마다, 자동화된 테스트가 실행되어 개발자는 코드에 문제가 있는지 빠르게 파악할 수 있습니다.
+
+CI의 목적은 코드 변경 사항을 빠르게 검증하고, 문제 발생 시 즉시 해결하여 개발의 효율성과 코드 품질을 높이는 것입니다. 다양한 브랜치에서 CI를 적용함으로써, 각 브랜치별로 발생할 수 있는 이슈를 조기에 발견하고 대응할 수 있습니다.
+
+
+
+### CD (Continuous Delivery & Continuous Deployment)
+
+Continuous Delivery (CD) 는 CI 과정을 통해 검증된 코드가 프로덕션 환경에 배포될 준비가 되어 있음을 의미합니다. 즉, 코드가 언제든지 안전하게 프로덕션 환경으로 배포될 수 있는 상태를 지속적으로 유지하는 것입니다. 예를 들면 컴파일 및 빌드를 수행하거나, 도커 이미지를 생성하는 등 유저들에게 서비스를 전달하기 바로 직전의 상태까지를 유지하는 것이 바로 Continuous Delivery 입니다. 실제로 자동으로 배포되지는 않습니다. 실제 배포는 수동 트리거(예: 버튼 클릭)에 의해 실행되죠.
+
+반면 Continuous Deployment 는 CI 과정을 통해 검증된 코드가 자동으로 프로덕션 환경으로 배포되는 것입니다. 사용자의 개입 없이 코드 변경이 바로 배포되는 것이 특징입니다. 여기서 "배포될 준비 상태를 유지한다"는 것은, 모든 변경 사항이 테스트를 통과하였으며 실제 프로덕션 환경에 배포될 수 있는 상태라는 것을 의미합니다. Continuous Deployment (CD)를 적용하게 되면, 개발자는 코드를 저장소에 푸시하는 순간부터 해당 코드가 의도한 대로 큰 버그없이 프로덕션 환경에 안전하게 배포될 수 있다는 확신을 가질 수 있습니다.
 
 
 
@@ -94,7 +210,7 @@ m.delayPad=512;
  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
 **/
 window.disqus_config=function () {
-	this.page.identifier="Git-협업하기-Collaboration-with-Git"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	this.page.identifier="Git-협업하기-Collaboration-with-Git-and-GitHub"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 	this.page.url=`https://kipid.tistory.com/entry/${this.page.identifier}`; // Replace PAGE_URL with your page's canonical URL variable
 };
 })(window.m, jQuery);
