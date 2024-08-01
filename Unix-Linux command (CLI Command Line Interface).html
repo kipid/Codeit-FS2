@@ -17,8 +17,9 @@
 <codeprint class="SEE">
 # Unix/Linux command (CLI: Command Line Interface)
 
-이걸 꼭 공부해야만 하나 하는 의구심이 들긴한다...
+이걸 꼭 공부해야만 하나 하는 의구심이 들긴한다... 요새 GUI (Graphical User Interface) 가 워낙 잘 되어 있어서...
 
+하지만 GUI 를 만드는데 비용이 많이들다보니, 더 정확한 명령, 간단한 구현을 원하는 개발자 입장에선 CLI 가 꼭 필요하긴 한듯. 특히나 개발 초기의 것들은 GUI 까지 만들어지려면 한 세월일거라...
 
 
 ## PH
@@ -54,16 +55,17 @@ cal -j // 해당년도 1일부터의 일수를 출력
 ls // List (파일 리스트 출력)
 ls -a // all (숨겨진 파일들까지 출력)
 ls -a -l // -l (long format: 속성까지 포함시켜서 출력)
+ls -al // 두 옵션을 합쳐서 한번에.
+
+
+mkdir a b // a, b 디렉토리 만들기
+mkdir Sep Aug Jul // Sep, Aug, Jul 디렉토리 만들기
+mkdir ~/a // Home 디렉토리에 a 디렉토리 만들기
 
 
 
-mkdir a b // a, b 폴더 만들기
-mkdir Sep Aug Jul // Sep, Aug, Jul 폴더 만들기
-mkdir ~/a // Home 디렉토리에 a 폴더 만들기
-
-
-
-touch finances.txt performance.txt // 파일 두개 만들
+touch file.txt // 빈 파일 만들기
+touch finances.txt performance.txt // 빈 파일 두개 만들기
 ```/
 
 
@@ -73,7 +75,7 @@ touch finances.txt performance.txt // 파일 두개 만들
 ```[.scrollable]
 -rwxr-xr-x 1 root root     51632 Feb  7  2022 '['
 -rwxr-xr-x 1 root root     14720 Nov 28  2022  addpart
-lrwxrwxrwx 1 root root         6 Jan  8  2023  apropos -> whatis
+lrwxrwxrwx 1 root root         6 Jan  8  2023  apropos -&gt; whatis
 -rwxr-xr-x 1 root root     18824 Jan 17  2023  apt
 -rwxr-xr-x 1 root root     84448 Jan 17  2023  apt-cache
 -rwxr-xr-x 1 root root     27104 Jan 17  2023  apt-cdrom
@@ -82,7 +84,7 @@ lrwxrwxrwx 1 root root         6 Jan  8  2023  apropos -> whatis
 -rwxr-xr-x 1 root root     28173 Jan 17  2023  apt-key
 -rwxr-xr-x 1 root root     51680 Jan 17  2023  apt-mark
 -rwxr-xr-x 1 root root     31232 Feb  7  2022  arch
-lrwxrwxrwx 1 root root        21 Jun 17  2022  awk -> /etc/alternatives/awk
+lrwxrwxrwx 1 root root        21 Jun 17  2022  awk -&gt; /etc/alternatives/awk
 -rwxr-xr-x 1 root root     51720 Feb  7  2022  b2sum
 -rwxr-xr-x 1 root root     35328 Feb  7  2022  base32
 -rwxr-xr-x 1 root root     35328 Feb  7  2022  base64
@@ -90,8 +92,8 @@ lrwxrwxrwx 1 root root        21 Jun 17  2022  awk -> /etc/alternatives/awk
 -rwxr-xr-x 1 root root     47616 Feb  7  2022  basenc
 -rwxr-xr-x 1 root root   1437832 Jan  7  2023  bash
 -rwxr-xr-x 1 root root      6923 Jan  7  2023  bashbug
-lrwxrwxrwx 1 root root         4 Jan 28  2022  cal -> ncal
-lrwxrwxrwx 1 root root         3 Jan 25  2023  captoinfo -> tic
+lrwxrwxrwx 1 root root         4 Jan 28  2022  cal -&gt; ncal
+lrwxrwxrwx 1 root root         3 Jan 25  2023  captoinfo -&gt; tic
 -rwxr-xr-x 1 root root     35280 Feb  7  2022  cat
 -rwxr-xr-x 1 root root     35600 Jan  8  2023  catman
 -rwxr-sr-x 1 root shadow   72184 Nov 23  2022  chage
@@ -136,8 +138,8 @@ lrwxrwxrwx 1 root root         3 Jan 25  2023  captoinfo -> tic
 -rwxr-xr-x 1 root root     39432 Feb  7  2022  dircolors
 -rwxr-xr-x 1 root root     31104 Feb  7  2022  dirname
 -rwxr-xr-x 1 root root     72336 Nov 28  2022  dmesg
-lrwxrwxrwx 1 root root         8 Mar 23  2022  dnsdomainname -> hostname
-lrwxrwxrwx 1 root root         8 Mar 23  2022  domainname -> hostname
+lrwxrwxrwx 1 root root         8 Mar 23  2022  dnsdomainname -&gt; hostname
+lrwxrwxrwx 1 root root         8 Mar 23  2022  domainname -&gt; hostname
 -rwxr-xr-x 1 root root    318176 Jan 16  2023  dpkg
 -rwxr-xr-x 1 root root    146000 Jan 16  2023  dpkg-deb
 -rwxr-xr-x 1 root root    125504 Jan 16  2023  dpkg-divert
@@ -149,11 +151,11 @@ lrwxrwxrwx 1 root root         8 Mar 23  2022  domainname -> hostname
 -rwxr-xr-x 1 root root     43552 Jan 16  2023  dpkg-trigger
 -rwxr-xr-x 1 root root    150016 Feb  7  2022  du
 -rwxr-xr-x 1 root root     35120 Feb  7  2022  echo
-lrwxrwxrwx 1 root root        24 Feb  3  2023  editor -> /etc/alternatives/editor
+lrwxrwxrwx 1 root root        24 Feb  3  2023  editor -&gt; /etc/alternatives/editor
 -rwxr-xr-x 1 root root        41 Oct 25  2022  egrep
 -rwxr-xr-x 1 root root     43968 Feb  7  2022  env
 -rwxr-xr-x 1 root root    201160 Nov 15  2022  eqn
-lrwxrwxrwx 1 root root        20 Feb  3  2023  ex -> /etc/alternatives/ex
+lrwxrwxrwx 1 root root        20 Feb  3  2023  ex -&gt; /etc/alternatives/ex
 -rwxr-xr-x 1 root root     35352 Feb  7  2022  expand
 -rwxr-sr-x 1 root shadow   23056 Nov 23  2022  expiry
 -rwxr-xr-x 1 root root    108960 Feb  7  2022  expr
@@ -169,35 +171,35 @@ lrwxrwxrwx 1 root root        20 Feb  3  2023  ex -> /etc/alternatives/ex
 -rwxr-xr-x 1 root root     39424 Feb  7  2022  fmt
 -rwxr-xr-x 1 root root     35328 Feb  7  2022  fold
 -rwxr-xr-x 1 root root     26864 Aug 22  2022  free
-lrwxrwxrwx 1 root root         3 Nov 15  2022  geqn -> eqn
+lrwxrwxrwx 1 root root         3 Nov 15  2022  geqn -&gt; eqn
 -rwxr-xr-x 1 root root     26992 Oct  7  2022  getconf
 -rwxr-xr-x 1 root root     35552 Oct  7  2022  getent
 -rwxr-xr-x 1 root root     22912 Nov 28  2022  getopt
 -rwsr-xr-x 1 root root     76248 Nov 23  2022  gpasswd
 -rwxr-xr-x 1 root root    277568 Dec 15  2022  gpgv
-lrwxrwxrwx 1 root root         3 Nov 15  2022  gpic -> pic
+lrwxrwxrwx 1 root root         3 Nov 15  2022  gpic -&gt; pic
 -rwxr-xr-x 1 root root    182728 Oct 25  2022  grep
 -rwxr-xr-x 1 root root    100864 Nov 15  2022  groff
 -rwxr-xr-x 1 root root      2776 Nov 15  2022  grog
 -rwxr-xr-x 1 root root    170552 Nov 15  2022  grops
 -rwxr-xr-x 1 root root    125464 Nov 15  2022  grotty
 -rwxr-xr-x 1 root root     35328 Feb  7  2022  groups
-lrwxrwxrwx 1 root root         3 Nov 15  2022  gtbl -> tbl
+lrwxrwxrwx 1 root root         3 Nov 15  2022  gtbl -&gt; tbl
 -rwxr-xr-x 2 root root      2346 Aug 16  2022  gunzip
 -rwxr-xr-x 1 root root      6447 Aug 16  2022  gzexe
 -rwxr-xr-x 1 root root     97520 Aug 16  2022  gzip
 -rwxr-xr-x 1 root root     47568 Nov 28  2022  hardlink
-lrwxrwxrwx 1 root root         7 Nov 28  2022  hd -> hexdump
+lrwxrwxrwx 1 root root         7 Nov 28  2022  hd -&gt; hexdump
 -rwxr-xr-x 1 root root     43520 Feb  7  2022  head
 -rwxr-xr-x 1 root root      2514 Jan 11  2023  helpztags
 -rwxr-xr-x 1 root root     51600 Nov 28  2022  hexdump
 -rwxr-xr-x 1 root root     31232 Feb  7  2022  hostid
 -rwxr-xr-x 1 root root     22760 Mar 23  2022  hostname
-lrwxrwxrwx 1 root root         7 Nov 28  2022  i386 -> setarch
+lrwxrwxrwx 1 root root         7 Nov 28  2022  i386 -&gt; setarch
 -rwxr-xr-x 1 root root     72168 Oct  7  2022  iconv
 -rwxr-xr-x 1 root root     39424 Feb  7  2022  id
 -rwxr-xr-x 1 root root     63872 Jan 25  2023  infocmp
-lrwxrwxrwx 1 root root         3 Jan 25  2023  infotocap -> tic
+lrwxrwxrwx 1 root root         3 Jan 25  2023  infotocap -&gt; tic
 -rwxr-xr-x 1 root root    145936 Feb  7  2022  install
 -rwxr-xr-x 1 root root     14720 Nov 28  2022  ionice
 -rwxr-xr-x 1 root root     22984 Nov 28  2022  ipcmk
@@ -207,18 +209,18 @@ lrwxrwxrwx 1 root root         3 Jan 25  2023  infotocap -> tic
 -rwxr-xr-x 1 root root     47656 Feb  7  2022  join
 -rwxr-xr-x 1 root root     30952 Aug 22  2022  kill
 -rwxr-xr-x 1 root root     35200 Nov 28  2022  last
-lrwxrwxrwx 1 root root         4 Nov 28  2022  lastb -> last
+lrwxrwxrwx 1 root root         4 Nov 28  2022  lastb -&gt; last
 -rwxr-xr-x 1 root root     28456 Nov 23  2022  lastlog
 -rwxr-xr-x 1 root root      5441 Oct  7  2022  ldd
 -rwxr-xr-x 1 root root    199048 Feb 12  2023  less
 -rwxr-xr-x 1 root root     14656 Feb 12  2023  lessecho
-lrwxrwxrwx 1 root root         8 Feb 12  2023  lessfile -> lesspipe
+lrwxrwxrwx 1 root root         8 Feb 12  2023  lessfile -&gt; lesspipe
 -rwxr-xr-x 1 root root     24272 Feb 12  2023  lesskey
 -rwxr-xr-x 1 root root      9047 Feb 12  2023  lesspipe
 -rwxr-xr-x 1 root root    101896 Jan  8  2023  lexgrog
 -rwxr-xr-x 1 root root     31232 Feb  7  2022  link
-lrwxrwxrwx 1 root root         7 Nov 28  2022  linux32 -> setarch
-lrwxrwxrwx 1 root root         7 Nov 28  2022  linux64 -> setarch
+lrwxrwxrwx 1 root root         7 Nov 28  2022  linux32 -&gt; setarch
+lrwxrwxrwx 1 root root         7 Nov 28  2022  linux64 -&gt; setarch
 -rwxr-xr-x 1 root root     59904 Feb  7  2022  ln
 -rwxr-xr-x 1 root root     50824 Oct  7  2022  locale
 -rwxr-xr-x 1 root root     14488 Oct 28  2022  locale-check
@@ -245,7 +247,7 @@ lrwxrwxrwx 1 root root         7 Nov 28  2022  linux64 -> setarch
 -rwxr-xr-x 1 root root    158504 Jun 17  2022  mawk
 -rwxr-xr-x 1 root root     27080 Nov 28  2022  mcookie
 -rwxr-xr-x 1 root root     43424 Feb  7  2022  md5sum
-lrwxrwxrwx 1 root root         6 Feb  7  2022  md5sum.textutils -> md5sum
+lrwxrwxrwx 1 root root         6 Feb  7  2022  md5sum.textutils -&gt; md5sum
 -rwxr-xr-x 1 root root     14720 Nov 28  2022  mesg
 -rwxr-xr-x 1 root root     68096 Feb  7  2022  mkdir
 -rwxr-xr-x 1 root root     39424 Feb  7  2022  mkfifo
@@ -256,12 +258,12 @@ lrwxrwxrwx 1 root root         6 Feb  7  2022  md5sum.textutils -> md5sum
 -rwxr-xr-x 1 root root     18816 Nov 28  2022  mountpoint
 -rwxr-xr-x 1 root root    137744 Feb  7  2022  mv
 -rwxr-xr-x 1 root root     22912 Nov 28  2022  namei
-lrwxrwxrwx 1 root root        22 Jun 17  2022  nawk -> /etc/alternatives/nawk
+lrwxrwxrwx 1 root root        22 Jun 17  2022  nawk -&gt; /etc/alternatives/nawk
 -rwxr-xr-x 1 root root     37832 Jan 28  2022  ncal
 -rwxr-xr-x 1 root root       913 Nov 15  2022  neqn
 -rwsr-xr-x 1 root root     40664 Nov 23  2022  newgrp
 -rwxr-xr-x 1 root root     35328 Feb  7  2022  nice
-lrwxrwxrwx 1 root root         8 Mar 23  2022  nisdomainname -> hostname
+lrwxrwxrwx 1 root root         8 Mar 23  2022  nisdomainname -&gt; hostname
 -rwxr-xr-x 1 root root    100928 Feb  7  2022  nl
 -rwxr-xr-x 1 root root     35232 Feb  7  2022  nohup
 -rwxr-xr-x 1 root root     35328 Feb  7  2022  nproc
@@ -269,7 +271,7 @@ lrwxrwxrwx 1 root root         8 Mar 23  2022  nisdomainname -> hostname
 -rwxr-xr-x 1 root root     27240 Nov 28  2022  nsenter
 -rwxr-xr-x 1 root root     55840 Feb  7  2022  numfmt
 -rwxr-xr-x 1 root root     68096 Feb  7  2022  od
-lrwxrwxrwx 1 root root        23 Nov 28  2022  pager -> /etc/alternatives/pager
+lrwxrwxrwx 1 root root        23 Nov 28  2022  pager -&gt; /etc/alternatives/pager
 -rwxr-xr-x 1 root root     59784 Nov 28  2022  partx
 -rwsr-xr-x 1 root root     64152 Nov 23  2022  passwd
 -rwxr-xr-x 1 root root     35232 Feb  7  2022  paste
@@ -278,10 +280,10 @@ lrwxrwxrwx 1 root root        23 Nov 28  2022  pager -> /etc/alternatives/pager
 -rwxr-xr-x 2 root root   3921152 Jan  8  2023  perl5.36.0
 -rwxr-xr-x 1 root root     30968 Aug 22  2022  pgrep
 -rwxr-xr-x 1 root root    204864 Nov 15  2022  pic
-lrwxrwxrwx 1 root root        14 Jan 13  2023  pidof -> /sbin/killall5
+lrwxrwxrwx 1 root root        14 Jan 13  2023  pidof -&gt; /sbin/killall5
 -rwxr-xr-x 1 root root     30968 Aug 22  2022  pidwait
 -rwxr-xr-x 1 root root     35232 Feb  7  2022  pinky
-lrwxrwxrwx 1 root root         5 Aug 22  2022  pkill -> pgrep
+lrwxrwxrwx 1 root root         5 Aug 22  2022  pkill -&gt; pgrep
 -rwxr-xr-x 1 root root     22976 Oct  7  2022  pldd
 -rwxr-xr-x 1 root root     35064 Aug 22  2022  pmap
 -rwxr-xr-x 1 root root     68168 Feb  7  2022  pr
@@ -293,12 +295,12 @@ lrwxrwxrwx 1 root root         5 Aug 22  2022  pkill -> pgrep
 -rwxr-xr-x 1 root root    129584 Feb  7  2022  ptx
 -rwxr-xr-x 1 root root     35328 Feb  7  2022  pwd
 -rwxr-xr-x 1 root root     14568 Aug 22  2022  pwdx
-lrwxrwxrwx 1 root root         4 Jan  7  2023  rbash -> bash
+lrwxrwxrwx 1 root root         4 Jan  7  2023  rbash -&gt; bash
 -rwxr-xr-x 1 root root     39328 Feb  7  2022  readlink
 -rwxr-xr-x 1 root root     39328 Feb  7  2022  realpath
 -rwxr-xr-x 1 root root     22912 Nov 28  2022  rename.ul
 -rwxr-xr-x 1 root root     14720 Nov 28  2022  renice
-lrwxrwxrwx 1 root root         4 Jan 25  2023  reset -> tset
+lrwxrwxrwx 1 root root         4 Jan 25  2023  reset -&gt; tset
 -rwxr-xr-x 1 root root     22912 Nov 28  2022  resizepart
 -rwxr-xr-x 1 root root     14720 Nov 28  2022  rev
 -rwxr-xr-x 1 root root        30 Jan 29  2020  rgrep
@@ -306,8 +308,8 @@ lrwxrwxrwx 1 root root         4 Jan 25  2023  reset -> tset
 -rwxr-xr-x 1 root root     43424 Feb  7  2022  rmdir
 -rwxr-xr-x 1 root root     27176 Nov  2  2022  run-parts
 -rwxr-xr-x 1 root root     35328 Feb  7  2022  runcon
-lrwxrwxrwx 1 root root        23 Feb  3  2023  rview -> /etc/alternatives/rview
-lrwxrwxrwx 1 root root        22 Feb  3  2023  rvim -> /etc/alternatives/rvim
+lrwxrwxrwx 1 root root        23 Feb  3  2023  rview -&gt; /etc/alternatives/rview
+lrwxrwxrwx 1 root root        22 Feb  3  2023  rvim -&gt; /etc/alternatives/rvim
 -rwxr-xr-x 1 root root     10487 Nov  2  2022  savelog
 -rwxr-xr-x 1 root root     55680 Nov 28  2022  script
 -rwxr-xr-x 1 root root     43392 Nov 28  2022  scriptlive
@@ -323,8 +325,8 @@ lrwxrwxrwx 1 root root        22 Feb  3  2023  rvim -> /etc/alternatives/rvim
 -rwxr-xr-x 1 root root     39304 Nov 28  2022  setpriv
 -rwxr-xr-x 1 root root     14720 Nov 28  2022  setsid
 -rwxr-xr-x 1 root root     35200 Nov 28  2022  setterm
-lrwxrwxrwx 1 root root         6 Nov 23  2022  sg -> newgrp
-lrwxrwxrwx 1 root root         4 Dec 12  2022  sh -> dash
+lrwxrwxrwx 1 root root         6 Nov 23  2022  sg -&gt; newgrp
+lrwxrwxrwx 1 root root         4 Dec 12  2022  sh -&gt; dash
 -rwxr-xr-x 1 root root     43424 Feb  7  2022  sha1sum
 -rwxr-xr-x 1 root root     51616 Feb  7  2022  sha224sum
 -rwxr-xr-x 1 root root     51616 Feb  7  2022  sha256sum
@@ -335,7 +337,7 @@ lrwxrwxrwx 1 root root         4 Dec 12  2022  sh -> dash
 -rwxr-xr-x 1 root root     30952 Aug 22  2022  skill
 -rwxr-xr-x 1 root root     22768 Aug 22  2022  slabtop
 -rwxr-xr-x 1 root root     35328 Feb  7  2022  sleep
-lrwxrwxrwx 1 root root         5 Aug 22  2022  snice -> skill
+lrwxrwxrwx 1 root root         5 Aug 22  2022  snice -&gt; skill
 -rwxr-xr-x 1 root root     39400 Nov 15  2022  soelim
 -rwxr-xr-x 1 root root    101168 Feb  7  2022  sort
 -rwxr-xr-x 1 root root     52184 Feb  7  2022  split
@@ -383,11 +385,11 @@ lrwxrwxrwx 1 root root         5 Aug 22  2022  snice -> skill
 -rwxr-xr-x 1 root root     35328 Feb  7  2022  users
 -rwxr-xr-x 1 root root     22912 Nov 28  2022  utmpdump
 -rwxr-xr-x 1 root root    138208 Feb  7  2022  vdir
-lrwxrwxrwx 1 root root        20 Feb  3  2023  vi -> /etc/alternatives/vi
-lrwxrwxrwx 1 root root        22 Feb  3  2023  view -> /etc/alternatives/view
-lrwxrwxrwx 1 root root        21 Feb  3  2023  vim -> /etc/alternatives/vim
+lrwxrwxrwx 1 root root        20 Feb  3  2023  vi -&gt; /etc/alternatives/vi
+lrwxrwxrwx 1 root root        22 Feb  3  2023  view -&gt; /etc/alternatives/view
+lrwxrwxrwx 1 root root        21 Feb  3  2023  vim -&gt; /etc/alternatives/vim
 -rwxr-xr-x 1 root root   3952384 Feb  3  2023  vim.basic
-lrwxrwxrwx 1 root root        25 Feb  3  2023  vimdiff -> /etc/alternatives/vimdiff
+lrwxrwxrwx 1 root root        25 Feb  3  2023  vimdiff -&gt; /etc/alternatives/vimdiff
 -rwxr-xr-x 1 root root      2154 Feb  3  2023  vimtutor
 -rwxr-xr-x 1 root root     39160 Aug 22  2022  vmstat
 -rwxr-xr-x 1 root root     22760 Aug 22  2022  w
@@ -397,16 +399,16 @@ lrwxrwxrwx 1 root root        25 Feb  3  2023  vimdiff -> /etc/alternatives/vimd
 -rwxr-xr-x 1 root root     35224 Nov 28  2022  wdctl
 -rwxr-xr-x 1 root root     48416 Jan  8  2023  whatis
 -rwxr-xr-x 1 root root     31576 Nov 28  2022  whereis
-lrwxrwxrwx 1 root root        23 Nov  2  2022  which -> /etc/alternatives/which
+lrwxrwxrwx 1 root root        23 Nov  2  2022  which -&gt; /etc/alternatives/which
 -rwxr-xr-x 1 root root       946 Nov  2  2022  which.debianutils
 -rwxr-xr-x 1 root root     51728 Feb  7  2022  who
 -rwxr-xr-x 1 root root     31232 Feb  7  2022  whoami
 -rwxr-sr-x 1 root tty      22920 Nov 28  2022  write
-lrwxrwxrwx 1 root root         7 Nov 28  2022  x86_64 -> setarch
+lrwxrwxrwx 1 root root         7 Nov 28  2022  x86_64 -&gt; setarch
 -rwxr-xr-x 1 root root     63912 Aug 19  2022  xargs
 -rwxr-xr-x 1 root root     18720 Feb  3  2023  xxd
 -rwxr-xr-x 1 root root     31104 Feb  7  2022  yes
-lrwxrwxrwx 1 root root         8 Mar 23  2022  ypdomainname -> hostname
+lrwxrwxrwx 1 root root         8 Mar 23  2022  ypdomainname -&gt; hostname
 -rwxr-xr-x 1 root root      1984 Aug 16  2022  zcat
 -rwxr-xr-x 1 root root      1678 Aug 16  2022  zcmp
 -rwxr-xr-x 1 root root      6460 Aug 16  2022  zdiff
@@ -427,6 +429,8 @@ lrwxrwxrwx 1 root root         8 Mar 23  2022  ypdomainname -> hostname
 이건 별로 안쓸거 같은데... VS Code 같은게 워낙 좋아서.
 
 ```
+vim [filename] // file 편집하기.
+
 esc: Normal 모드
 i: Insert 모드
 v: Visual 모드
@@ -438,11 +442,38 @@ v: Visual 모드
 :w hello_world.txt // write
 :wq // 저장후 종료
 :q! // 그냥 종료
+
+
+
+y // yanked 복사
+p // paste 붙여넣기 (커서 아랫줄에 붙음.)
+yy // 현재 한줄만 복사
+2yy // 현재 줄부터 2줄 복사
+100yy // 현재 줄부터 100줄 복사
+d // 잘라내기
+dd // 잘라내기
+2dd // 두줄 잘라내기
+x // 한글자 잘라내기
+3x // 세글자 잘라내기
+
+Ctrl+f // forward 페이지 단위로 이동
+Ctrl+b // backward 페이지 단위로 이동
+
+1G // 1번째 라인으로 이동
+100G // 100번째 라인으로 이동
+
+$ // 해당 라인 맨 끝으로
+0 // 해당 라인 맨 앞으로
+
+J // join 밑의 줄의 내용을 옆으로 붙인다. 땡기면서.
 ```/
 
+
+
 ```
-cat // concaterate: 파일 보기
-less // 파일 보기
+cat // concaterate: 파일 펼쳐 보기
+less // 한 페이지에 파일 보기
+more // 파일 내용을 확인하는 명령어들 중에 하나로, 파일을 읽어 화면에 화면 단위로 끊어서 출력하는 명령어이다. 이 명령어는 위에서 아래 방향으로만 출력 되기 때문에, 지나간 내용을 다시 볼 수 없는 단점이 있다.
 head // 첫 10줄 보기
 tail // 마지막 10줄 보기
 ```/
@@ -451,10 +482,16 @@ tail // 마지막 10줄 보기
 
 ## 파일 옮기기 & 이름 변경하기
 
+Linux/Ubuntu 는 여러 사용자가 사용하는걸 기반으로 깔고 가기 때문에 Home directory 가 사용자마다 달라지게 됨.
+
 ```
+cd ~ // Home directory 로 이동
+
+mv [source] [target/destination] // 이름 바꾸기, 옮기기
+
 mv performance.txt performance2.txt // 이름 바꾸기
-mv Sep Oct // 폴더 이름 바꾸기 or Oct 안으로 Sep 디렉토리 옮기기
-mv finances.txt Sep // 파일을 Sep 폴더로 옮기기
+mv Sep Oct // 디렉토리 이름 바꾸기 or Oct 안으로 Sep 디렉토리 옮기기
+mv finances.txt Sep // 파일을 Sep 디렉토리로 옮기기
 // 파일은 덮어씌워짐 경고없이
 
 
@@ -465,14 +502,39 @@ mv -i test1.txt test2.txt // 덮어씌우는거 방지 옵션
 
 cp // copy
 cp test1.txt test2.txt
-cp -r // 폴더 복사할때
+cp -r test1 test2 // 디렉토리 복사할때 recursive 하게 하위에 있는 파일, 디렉토리도 모두 복사.
+cp -ri test1 test2 // interactive 하게 확인하면서 복사하기.
 
-
-rm // remove
+rm // remove, Unix 의 rm 은 휴지통으로 가지 않고 바로 지워진다. 조심!!!
 rm test1.txt
-rm -r Folder // 폴더 지울때
-rm -ri Folder // 확인하면서 지우기
-rm -rf Folder // Force remove
+rm -r directory // 디렉토리 지울때, recursive 하게 하위에 있는 파일, 디렉토리도 모두 삭제.
+rm -ri directory // interactive 하게 확인하면서 지우기.
+rm -rf directory // Force remove
+```/
+
+윈도우에서는
+
+```
+rename [source] [target/destination] // 파일 이름 바꾸기
+move [source] [target/destination] // 파일 이동하기
+```/
+
+
+
+### 절대 경로와 상대 경로
+
+```
+cd /Home/kipid // 절대 경로.
+cd ~/directory // Home directory 에서 상대적으로 이동.
+
+cd ./ // 현재 디렉토리.
+cd ../ // 상위 디렉토리.
+cd ../../ // 상상위 디렉토리.
+
+cd ./sub-directory
+cd ../another-directory
+
+pwd // print working directory
 ```/
 
 
@@ -481,7 +543,7 @@ rm -rf Folder // Force remove
 
 ```
 apt update
-sudo apt update
+sudo apt update // root 계정이 아닐때, 잠시 권한 부여. Super user do. (Root Password 입력 필요.)
 
 
 
@@ -499,7 +561,25 @@ brew uninstall wget
 
 
 
+### Homebrew 설치
+
+```
+
+```/
+
+
+
 ## WSL (Windows SubSystem for Linux)
+
+Windows Store 에서 Ubuntu 검색해서 설치.
+
+윈도우에서 linux 명령어들을 쓸 수 있게 해줌. cal 명령어는 안먹히는듯. 완전히 linux 랑 같진 않은듯한...
+
+
+
+## 폴더나 파일 이름에 공백을 넣지 맙시다.
+
+단어 사이의 구분은 <code>-</code> (dash) or <code>_</code> (underscore) 사용.
 
 
 
@@ -514,7 +594,8 @@ brew uninstall wget
 <script>
 (function(m, $, undefined) {
 m.printMode=false;
-m.recoCats="";
+m.recoeveUserId="kipid";
+m.recoCats="[IT/Programming]--국비 지원 코딩/공부";
 m.wait=1024;
 m.delayPad=512;
 
