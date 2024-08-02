@@ -40,6 +40,11 @@ Git 은 (Global Information Tracker) 의 약자로 대충 보면 된다. (처음
 우선 설치: <cite class="ref-git-download"></cite> 에서 다운 받고 대충 설치.
 
 ```
+git config alias.history "log --pretty=oneline"
+// git histroy 라고만 써도 자동으로 git log --pretty=oneline 을 실행하게 됨.
+
+git history
+
 git init // 버전 관리 시작하기
 
 git config user.name "kipid"
