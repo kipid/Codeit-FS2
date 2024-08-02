@@ -139,6 +139,9 @@ git help [커맨드 이름] : 사용법이 궁금한 Git 커맨드의 공식 메
 
 ```
 git remote add origin https://github.com/kipid/Example_Repository.git
+git branch -M main
+git branch -d master
+// or git branch -d --remote origin/master
 git push -u origin main
 // Id 비번으로 인증. =&gt; GitHub 패스워드가 아닌 토큰(token)을 입력.
 
@@ -234,7 +237,7 @@ git commit --amend // 이전 commit 수정하기.
 ## 긴 커맨드에 alias 설정하기
 
 ```
-git config alias.history 'log --pretty=oneline'
+git config alias.history "log --pretty=oneline"
 // git histroy 라고만 써도 자동으로 git log --pretty=oneline 을 실행하게 됨.
 
 git history
@@ -1158,6 +1161,24 @@ git cherry-pick [커밋 아이디] : 특정 커밋의 내용을 현재 커밋에
 3개월간 Intern 을 했던 Skelter Labs 란 회사에서 쓰던 시스템인데, git commit 한걸 가지고 변경된 사항마다 이러이러한 부분이 수정이 필요한거 같단 리뷰/코멘트를 Graphical 하게 써서 리뷰를 보내줄 수 있고. 그 수정부분을 반영해서 다시 리뷰를 요청하고, 다시 리뷰 받고를 반복. 리뷰를 통과해야만 main branch 에 리뷰가 다 된 commit 들이 하나로 통합된 commit 하나가 merge 되는 시스템이었던 걸로 기억함.
 
 리눅스 서버에 깔아야 하는거 같긴한데... 큰 회사나 스타트업들이 구축해놓으면 꽤 좋은거 같음.
+
+
+
+## 여러 원격 저장소들
+
+<div class="bcf">
+
+GitHub: 서비스가 죽는다. 대란 (업무 마비). 대중적. 관대하다. (많은 서비스들이 무료. 비공개 Repository 등.)
+
+GitLab: 설치형
+
+BigBuckit:
+
+Figma: 서버가 죽으면 대란.
+
+AWS: 서비스 중단이면 대란.
+
+</div>
 
 
 
