@@ -29,6 +29,7 @@ section.sec-1 {
   height: 350px;
   background-image: url("../images/banner_img.jpg");
   background-size: cover;
+  background-position: center center;
 }
 
 section.sec-2 {
@@ -43,7 +44,7 @@ section.sec-2 {
     "p";
 }
 
-h1, h2, h3 {
+h1, h2, h3, p {
   margin: 0;
   padding: 0;
 }
@@ -54,6 +55,10 @@ h1, h2, h3 {
 
 .grid1 h2 {
   margin-bottom: 30px;
+}
+
+#info p {
+  flex-grow: 1;
 }
 
 .grid1 {
@@ -68,11 +73,13 @@ h1, h2, h3 {
   grid-area: g;
   background-image: url("../images/img1.jpg");
   background-size: cover;
+  background-position: center top;
 }
 
 .grid3 {
   grid-area: b;
   background-image: url("../images/img2.jpg");
+  background-position: center top;
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -91,6 +98,7 @@ h1, h2, h3 {
   grid-area: p;
   background-image: url("../images/img3.jpg");
   background-size: cover;
+  background-position: center top;
 }
 
 @media (min-width:768px) {
