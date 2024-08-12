@@ -42,11 +42,11 @@ Git 은 (Global Information Tracker) 의 약자로 대충 보면 된다. (처음
 ```
 git config alias.history "log --pretty=oneline" --global
 
-git config user.name "kipid"
+git config user.name "kipid" --global
 
-git config user.email "kipacti@google.com"
+git config user.email "kipacti@google.com" --global
 
-git config --global init.defaultBranch main
+git config --global init.defaultBranch main --global
 
 
 
@@ -90,13 +90,14 @@ Git은 내부적으로 크게 3가지 종류의 작업 영역을 두고 동작
 다음과 같은 <code>gitconfig.bat</code> 파일을 만들어서 <code>git_설치폴더\bin</code> 폴더에 넣어놓자. 시스템 환경 변수는 적절히 PATH 값을 설정해줘야 하긴 한다.
 
 ```[.lang-bat]
-git config alias.history "log --pretty=oneline"
+// --global 태그를 추가로 달면 터미널 껐다켜도 유지가 되는건가? 잘 모르겠네 ㅡ,.ㅡ;;;
+git config alias.history "log --pretty=oneline" --global
 
-git config user.name "kipid"
+git config user.name "kipid" --global
 
-git config user.email "kipacti@google.com"
+git config user.email "kipacti@google.com" --global
 
-git config --global init.defaultBranch main
+git config --global init.defaultBranch main --global
 ```/
 
 Cmd 창이나 Shell 혹은 Cmder 에서 <code>gitconfig</code> 만 치면 설정 완료.
@@ -267,16 +268,16 @@ git commit --amend // 이전 commit 수정하기.
 ## 긴 커맨드에 alias 설정하기
 
 ```
-git config alias.history "log --pretty=oneline"
+git config alias.history "log --pretty=oneline" --global
 // git histroy 라고만 써도 자동으로 git log --pretty=oneline 을 실행하게 됨.
 
 git history
 ```/
 
 
-## 두 commit 간의 차이 보기
+##  --global두 commit 간의 차이 보기
 
-```
+``` --global
 git diff [커밋 A의 아이디] [커밋 B의 아이디]
 ```/
 
