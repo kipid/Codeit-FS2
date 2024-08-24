@@ -33,20 +33,316 @@
 
 ## 리액트가 렌더링 하는 방식을 설명
 
+리액트의 렌더링 방식은 컴포넌트 기반의 UI 를 효율적으로 업데이트하고 관리하는 데 중점을 둡니다. 주요 단계는 다음과 같습니다:
+
+<ol>
+<li>렌더링 단계:
+	<ul>
+		<li>초기 렌더링: 리액트는 컴포넌트 트리의 루트에서 시작하여 모든 자식 컴포넌트를 순차적으로 렌더링합니다. 이 과정에서 JSX 문법으로 작성된 코드를 React.createElement() 호출로 변환하여 React 엘리먼트를 생성합니다.</li>
+		<li>리렌더링: 상태(state)나 속성(props)이 변경되면 해당 컴포넌트와 그 자식 컴포넌트들이 다시 렌더링됩니다. 리액트는 변경된 부분만을 효율적으로 업데이트하기 위해 가상 DOM(Virtual DOM) 을 사용합니다.</li>
+	</ul>
+</li>
+<li>재조정 (Reconciliation):
+	<ul>
+		<li>리액트는 새로운 가상 DOM 트리와 이전 가상 DOM 트리를 비교하여 변경된 부분만 실제 DOM에 반영합니다. 이 과정을 재조정이라고 하며, 이를 통해 성능을 최적화합니다.</li>
+	</ul>
+</li>
+<li>
+	커밋 단계:
+	<ul>
+		<li>변경 사항이 계산된 후, 리액트는 이를 실제 DOM에 적용합니다. 이 단계에서 컴포넌트의 라이프사이클 메서드(componentDidMount, componentDidUpdate 등)와 훅(useEffect 등)이 호출됩니다.</li>
+		<li>리액트의 이러한 렌더링 방식은 UI 업데이트를 효율적으로 처리하고, 불필요한 DOM 조작을 최소화하여 성능을 향상시킵니다.</li>
+	</ul>
+</li>
+</ol>
 
 
-## 리액트에서 Virtual DOM이 무엇인지, 이를 사용하는 이유는 무엇인지 설명
+
+### JSX 문법
+
+JavaScript 에서 HTML DOM 문법을 활용하기 위해 도입된 것으로 아래와 같은 JSX 는
+
+```[.lang-jsx]
+const user = {
+	name: 'Jane Doe',
+	age: 28,
+	hobbies: ['reading', 'traveling', 'coding']
+};
+
+const element = (
+	&lt;div&gt;
+		&lt;h1&gt;Profile&lt;/h1&gt;
+		&lt;p&gt;Name: {user.name}&lt;/p&gt;
+		&lt;p&gt;Age: {user.age}&lt;/p&gt;
+		&lt;h2&gt;Hobbies&lt;/h2&gt;
+		&lt;ul&gt;
+			{user.hobbies.map((hobby, index) =&gt; (
+				&lt;li key={index}&gt;{hobby}&lt;/li&gt;
+			))}
+		&lt;/ul&gt;
+	&lt;/div&gt;
+);
+```/
+
+바로 아래와 같이 변형되어 compile 된다고 보면 된다. HTML DOM 문법으로 DOM 비스무리한 JSON Object 를 만들어 내는 것이라고 생각하면 되겠다.
+
+```[.lang-js]
+const user = {
+	name: 'Jane Doe',
+	age: 28,
+	hobbies: ['reading', 'traveling', 'coding']
+};
+
+const element = React.createElement(
+	'div',
+	null,
+	React.createElement('h1', null, 'Profile'),
+	React.createElement('p', null, `Name: ${user.name}`),
+	React.createElement('p', null, `Age: ${user.age}`),
+	React.createElement('h2', null, 'Hobbies'),
+	React.createElement(
+		'ul',
+		null,
+		user.hobbies.map((hobby, index) =>
+			React.createElement('li', { key: index }, hobby)
+		)
+	)
+);
+```/
+
+<div class="bcf">
+
+계층 구조로 <code class="prettyprint">React.createElement([tagname], [properties], [children list])</code> 와 같이 변환된다.
+
+```
+&lt;tagname prop0="prop0" prop1="prop1" ...&gt;
+	&lt;child propC0="propC0" propC1="propC1" ...&gt;
+		&lt;subChild&gt;&lt;/subChild&gt;
+	&lt;/child&gt;
+	&lt;child propC2="This is propC2."/&gt;
+&lt;/tagname&gt;
+```/
+
+```
+React.createElement(
+	'tagname',
+	{ prop0: 'prop0', prop1: 'prop1', ... },
+	[
+		React.createElement(
+			'child',
+			{ propC0: 'propC0', propC1: 'propC1', ... },
+			[React.createElement('subChild', null, null)]
+		),
+		React.createElement('child', { propC2: 'This is propC2.' }, null)
+	]
+);
+```/
+
+위와 같은 React.createElement 함수로 다음과 같은 JSON Object (Virtual DOM) 이 생성된다고 보면 된다. (정확히 이렇게 되는지는 잘 모르겠다. React version 마다도 조금씩 다르고 변화가 생겼을 것으로 예상된다.)
+
+```
+{
+	"type": "tagname",
+	"props": {
+		"prop0": "prop0",
+		"prop1": "prop1",
+		...
+	},
+	"children": [
+		{
+			"type": "child",
+			"props": {
+				"propC0": "propC0",
+				"propC1": "propC1",
+				...
+			},
+			"children": [
+				{
+					"type": "subChild",
+					"props": {},
+					"children": null
+				}
+			]
+		},
+		{
+			"type": "child",
+			"props": {
+				"propC2": "This is propC2."
+			},
+			"children": null
+		}
+	]
+}
+```/
+
+</div>
+
+
+
+### 대문자로 시작되는 tag 는 user-defined tag 라고 생각하고 React 가 rendering 을 한다.
+
+```[.lang-jsx]
+function MyComponent({ title, content }) {
+	return (
+		&lt;div&gt;
+			&lt;h1&gt;{title}&lt;/h1&gt;
+			&lt;p&gt;{content}&lt;/p&gt;
+		&lt;/div&gt;
+	);
+}
+
+const element = (
+	&lt;div&gt;
+		&lt;MyComponent title="Hello, World!" content="This is a custom component." /&gt;
+		&lt;MyComponent title="Another Title" content="More content here." /&gt;
+	&lt;/div&gt;
+);
+```/
+
+```[.lang-js]
+function MyComponent({ title, content }) {
+	return React.createElement(
+		'div',
+		null,
+		React.createElement('h1', null, title),
+		React.createElement('p', null, content)
+	);
+}
+
+const element = React.createElement(
+	'div',
+	null,
+	React.createElement(MyComponent, { title: 'Hello, World!', content: 'This is a custom component.' }),
+	React.createElement(MyComponent, { title: 'Another Title', content: 'More content here.' })
+);
+```/
+
+
+
+## 리액트에서 Virtual DOM 이 무엇인지, 이를 사용하는 이유는 무엇인지 설명
+
+리액트의 Virtual DOM 은 실제 DOM(Document Object Model) 의 가벼운 복사본으로, UI 의 변화를 효율적으로 처리하기 위해 사용됩니다. 이를 통해 리액트는 성능을 최적화하고, 사용자 경험을 향상시킬 수 있습니다.
+
+
+
+### Virtual DOM의 정의
+
+Virtual DOM 은 메모리에 존재하는 가상 DOM 트리입니다. 리액트는 컴포넌트의 상태가 변경될 때마다 새로운 Virtual DOM 트리를 생성하고, 이를 이전의 Virtual DOM 트리와 비교하여 실제 DOM 에 최소한의 변경만을 반영합니다1.
+
+
+
+### Virtual DOM 을 사용하는 이유
+
+<ol>
+<li>성능 최적화:
+	<ul>
+		<li>실제 DOM 조작은 비용이 많이 드는 작업입니다. DOM 요소의 변경은 브라우저의 레이아웃 재계산과 리플로우, 리페인트 과정을 유발하기 때문입니다.</li>
+		<li>Virtual DOM 을 사용하면, 리액트는 변경 사항을 메모리 내에서 먼저 처리하고, 변경된 부분만 실제 DOM 에 반영하여 성능을 최적화합니다.</li>
+	</ul>
+</li>
+<li>효율적인 업데이트:
+	<ul>
+		<li>리액트는 Virtual DOM 을 통해 변경된 부분만을 효율적으로 찾아내어 업데이트합니다. 이를 통해 불필요한 DOM 조작을 최소화하고, 빠른 UI 업데이트를 가능하게 합니다.</li>
+	</ul>
+</li>
+<li>개발자 경험 향상:
+	<ul>
+		<li>Virtual DOM 은 리액트의 선언적 프로그래밍 방식을 지원합니다. 개발자는 UI 의 상태를 선언적으로 정의하고, 리액트는 이를 기반으로 효율적으로 업데이트를 처리합니다.</li>
+	</ul>
+</li>
+</ol>
 
 
 
 ## React 에서 컴포넌트란 무엇이며, 함수형 컴포넌트와 클래스 컴포넌트의 차이점을 설명
+
+리액트에서 컴포넌트는 UI 를 구성하는 독립적이고 재사용 가능한 코드 조각입니다. 컴포넌트는 자바스크립트 함수와 유사하며, 입력값(속성, props)을 받아서 화면에 표시할 UI 를 반환합니다. 리액트 컴포넌트는 크게 두 가지 유형으로 나뉩니다: 함수형 컴포넌트와 클래스 컴포넌트.
+
+
+
+### 함수형 컴포넌트
+
+함수형 컴포넌트는 자바스크립트 함수로 정의되며, 상태(state)와 생명주기 메서드를 사용하기 위해 리액트 훅(Hooks)을 활용합니다. 함수형 컴포넌트는 간결하고 작성하기 쉬우며, 최근 리액트 개발에서 더 많이 사용됩니다.
+
+예시
+
+```[.lang-jsx]
+import React from 'react';
+
+const MyComponent = ({ title, content }) =&gt; {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;{title}&lt;/h1&gt;
+      &lt;p&gt;{content}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default MyComponent;
+```/
+
+
+
+### 클래스 컴포넌트
+
+클래스 컴포넌트는 ES6 클래스 문법을 사용하여 정의되며, 상태와 생명주기 메서드를 직접 사용할 수 있습니다. 클래스 컴포넌트는 리액트의 초기 버전에서 주로 사용되었지만, 함수형 컴포넌트와 훅의 등장으로 점차 사용이 줄어들고 있습니다.
+
+예시
+
+```[.lang-jsx]
+import React, { Component } from 'react';
+
+class MyComponent extends Component {
+  render() {
+    const { title, content } = this.props;
+    return (
+      &lt;div&gt;
+        &lt;h1&gt;{title}&lt;/h1&gt;
+        &lt;p&gt;{content}&lt;/p&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+export default MyComponent;
+```/
+
+
+
+### 주요 차이점
+
+<ol>
+<li>문법:<ul>
+		<li>함수형 컴포넌트는 함수로 정의되고, 클래스 컴포넌트는 클래스로 정의됩니다.</li>
+		<li>함수형 컴포넌트는 return 문을 사용하여 JSX 를 반환하고, 클래스 컴포넌트는 render 메서드를 사용합니다.</li>
+	</ul>
+</li>
+<li>상태 관리:<ul>
+		<li>함수형 컴포넌트는 useState 와 같은 훅을 사용하여 상태를 관리합니다.</li>
+		<li>클래스 컴포넌트는 this.state 를 사용하여 상태를 관리합니다.</li>
+	</ul>
+</li>
+<li>생명주기 메서드:<ul>
+		<li>함수형 컴포넌트는 useEffect 훅을 사용하여 생명주기 메서드를 대체합니다.</li>
+		<li>클래스 컴포넌트는 componentDidMount, componentDidUpdate, componentWillUnmount 등의 생명주기 메서드를 사용합니다.</li>
+	</ul>
+</li>
+<li>간결함:<ul>
+		<li>함수형 컴포넌트는 코드가 더 간결하고 이해하기 쉽습니다.</li>
+		<li>클래스 컴포넌트는 상대적으로 더 복잡할 수 있습니다.</li>
+	</ul>
+</li>
+</ol>
+
+리액트 공식 문서에서도 함수형 컴포넌트를 우선적으로 사용할 것을 권장하고 있습니다.
 
 
 
 ## RRA
 
 <ol class="refs">
-<li></li>
+<li><a target="_blank" href="https://react.dev/">https://react.dev/</a></li>
+<li><a target="_blank" href="https://github.com/facebook/react">https://github.com/facebook/react</a></li>
 </ol>
 </codeprint><!-- SEE -->
 
@@ -55,7 +351,7 @@
 (function(m, $, undefined) {
 m.printMode=false;
 m.recoeveUserId="kipid";
-m.recoCats="";
+m.recoCats="[IT/Programming]--국비 지원 코딩/공부;[IT/Programming]--HTML, Javascript, CSS";
 m.wait=1024;
 m.delayPad=512;
 
@@ -64,7 +360,7 @@ m.delayPad=512;
  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
 **/
 window.disqus_config=function () {
-	this.page.identifier=""; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	this.page.identifier="week4-위클리-페이퍼-리액트가-렌더링-하는-방식을-설명-리액트에서-Virtual-DOM이-무엇인지-이를-사용하는-이유는-무엇인지-설명-React-에서-컴포넌트란-무엇이며-함수형-컴포넌트와-클래스-컴포넌트의-차이점을-설명"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 	this.page.url=`https://kipid.tistory.com/entry/${this.page.identifier}`; // Replace PAGE_URL with your page's canonical URL variable
 };
 })(window.k, jQuery);
