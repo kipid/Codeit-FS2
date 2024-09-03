@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=3, user-scalable=yes"/>
+
+<codeprint id="docuK-style">
+<div class="docuK rendered"><div class="sec" id="docuK-log"></div></div>
+
+<!-- From kipid.tistory CDN -->
+<script src="https://tistory1.daumcdn.net/tistory/1468360/skin/images/jquery.js"></script>
+<link rel="stylesheet" href="https://tistory1.daumcdn.net/tistory/1468360/skin/images/docuK-2.3.css">
+<script src="https://tistory3.daumcdn.net/tistory/1468360/skin/images/docuK-prepare-2.3.js" charset="utf-8"></script>
+</codeprint><!-- docuK-style -->
+
+<meta charset="utf-8" name="description" content=""/>
+
+<codeprint class="SEE">
+# week6 위클리 페이퍼 (웹 페이지 렌더링 방식 CSR, SSR, SSG 각각의 특징과 각 방식을 어떤 상황에 사용하면 좋을지 설명)
+
+
+
+## PH
+
+<ul>
+<li>2024-09-03 : First posting.</li>
+</ul>
+
+
+
+## TOC
+
+
+
+## 웹 페이지 렌더링 방식 CSR, SSR, SSG 각각의 특징과 각 방식을 어떤 상황에 사용하면 좋을지 설명
+
+웹 페이지 렌더링 방식에는 CSR (Client-Side Rendering), SSR (Server-Side Rendering), SSG (Static Site Generation) 세 가지가 있습니다. 각 방식의 특징과 사용 상황을 설명드릴게요.
+
+
+
+### Client-Side Rendering (CSR)
+
+특징:
+
+브라우저에서 렌더링: 모든 JavaScript 파일을 클라이언트(브라우저)로 전송하고, 브라우저가 이를 해석하여 페이지를 렌더링합니다.
+
+빠른 인터랙션: 페이지가 로드된 후에는 사용자와의 인터랙션이 빠릅니다.
+
+초기 로딩 시간: 초기 로딩 시간이 길어질 수 있습니다. 특히, JavaScript 파일이 크거나 네트워크 속도가 느린 경우.
+
+사용 상황:
+
+단일 페이지 애플리케이션(SPA): React, Vue.js 등으로 개발된 애플리케이션.
+
+동적 콘텐츠: 사용자 인터랙션이 많은 애플리케이션.
+
+
+
+### Server-Side Rendering (SSR)
+
+특징:
+
+서버에서 렌더링: 서버에서 HTML을 생성하여 클라이언트로 전송합니다.
+
+빠른 초기 로딩: 초기 로딩 시간이 빠릅니다. 브라우저가 완성된 HTML을 바로 렌더링할 수 있기 때문입니다.
+
+SEO 친화적: 검색 엔진이 HTML 콘텐츠를 쉽게 크롤링할 수 있습니다.
+
+사용 상황:
+
+SEO가 중요한 웹사이트: 블로그, 뉴스 사이트 등.
+
+초기 로딩 속도가 중요한 경우: 사용자 경험을 향상시키기 위해.
+
+
+
+### Static Site Generation (SSG)
+
+특징:
+
+사전 렌더링: 빌드 시점에 HTML 파일을 생성하여 서버에 배포합니다.
+
+빠른 로딩 시간: 정적 파일을 제공하므로 로딩 시간이 매우 빠릅니다.
+
+보안: 서버에서 동적으로 생성되는 콘텐츠가 없으므로 보안성이 높습니다.
+
+사용 상황:
+
+정적 콘텐츠: 블로그, 문서 사이트 등.
+
+변경이 적은 콘텐츠: 자주 변경되지 않는 페이지.
+
+
+
+## 결론
+
+각 렌더링 방식은 특정 상황에서 더 적합하게 사용될 수 있습니다. 프로젝트의 요구사항과 목표에 따라 적절한 방식을 선택하는 것이 중요합니다. 
+
+개인적으론 Client Side Rendering 을 좋아합니다. SEO 는 Search Engine 이 알아서 해야하는거 아닐지? =ㅂ=ㅋ.
+
+
+
+## RRA
+
+<ol class="refs">
+<a target="_blank" href="https://copilot.microsoft.com/?FORM=undexpand&">Copilot assisted posting.</a>
+</ol>
+</codeprint><!-- SEE -->
+
+<codeprint id="docuK-script">
+<script>
+(function(m, $, undefined) {
+m.printMode=false;
+m.recoeveUserId="kipid";
+m.recoCats="";
+m.wait=1024;
+m.delayPad=0;
+
+/**
+ *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+ *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+**/
+window.disqus_config=function () {
+	this.page.identifier="week6-위클리-페이퍼-웹-페이지-렌더링-방식-CSR-SSR-SSG-각각의-특징과-각-방식을-어떤-상황에-사용하면-좋을지-설명"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	this.page.url=`https://kipid.tistory.com/entry/${this.page.identifier}`; // Replace PAGE_URL with your page's canonical URL variable
+};
+})(window.k, jQuery);
+</script>
+
+<!-- From kipid.tistory CDN -->
+<script src="https://tistory3.daumcdn.net/tistory/1468360/skin/images/docuK-postProcess-2.3.js" charset="utf-8"></script>
+</codeprint><!-- docuK-script -->
