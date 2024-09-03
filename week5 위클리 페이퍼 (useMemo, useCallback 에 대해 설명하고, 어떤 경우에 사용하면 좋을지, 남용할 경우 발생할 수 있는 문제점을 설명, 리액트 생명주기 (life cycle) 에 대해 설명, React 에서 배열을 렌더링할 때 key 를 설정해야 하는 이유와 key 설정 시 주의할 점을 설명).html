@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=3, user-scalable=yes"/>
+
+<codeprint id="docuK-style">
+<div class="docuK rendered"><div class="sec" id="docuK-log"></div></div>
+
+<!-- From kipid.tistory CDN -->
+<script src="https://tistory1.daumcdn.net/tistory/1468360/skin/images/jquery.js"></script>
+<link rel="stylesheet" href="https://tistory1.daumcdn.net/tistory/1468360/skin/images/docuK-2.3.css">
+<script src="https://tistory3.daumcdn.net/tistory/1468360/skin/images/docuK-prepare-2.3.js" charset="utf-8"></script>
+</codeprint><!-- docuK-style -->
+
+<meta charset="utf-8" name="description" content=""/>
+
+<codeprint class="SEE">
+# week5 위클리 페이퍼 (useMemo, useCallback 에 대해 설명하고, 어떤 경우에 사용하면 좋을지, 남용할 경우 발생할 수 있는 문제점을 설명, 리액트 생명주기 (life cycle) 에 대해 설명, React 에서 배열을 렌더링할 때 key 를 설정해야 하는 이유와 key 설정 시 주의할 점을 설명)
+
+
+
+## PH
+
+<ul>
+<li>2024-09-02 : First posting.</li>
+</ul>
+
+
+
+## TOC
+
+
+
+## useMemo, useCallback 에 대해 설명하고, 어떤 경우에 사용하면 좋을지, 남용할 경우 발생할 수 있는 문제점을 설명
+
+useMemo 와 useCallback 는 React 에서 성능 최적화를 위해 사용되는 훅입니다. 각각의 역할과 사용법, 그리고 남용 시 발생할 수 있는 문제점을 설명드릴게요.
+
+
+
+### useMemo
+
+useMemo는 계산 비용이 높은 연산의 결과를 메모이제이션하여, 의존성 배열에 넣어준 값이 변경되지 않으면 이전에 계산한 값을 재사용합니다. 주로 다음과 같은 경우에 사용됩니다:
+
+비싼 계산: 복잡한 계산을 반복적으로 수행하는 경우, 이를 최적화하기 위해 사용합니다.
+
+렌더링 최적화: 컴포넌트가 불필요하게 다시 렌더링되는 것을 방지합니다.
+
+사용 예시:
+
+```
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+```/
+
+
+
+### useCallback
+
+useCallback 은 함수를 메모이제이션하여, 의존성 배열에 넣어준 값이 변경되지 않으면 이전에 생성한 함수를 재사용합니다. 주로 다음과 같은 경우에 사용됩니다:
+
+이벤트 핸들러: 자식 컴포넌트에 전달되는 이벤트 핸들러 함수를 최적화합니다.
+
+함수 재사용: 동일한 함수를 반복적으로 생성하는 것을 방지합니다.
+
+사용 예시:
+
+```
+const memoizedCallback = useCallback(() => {
+  doSomething(a, b);
+}, [a, b]);
+```/
+
+남용 시 발생할 수 있는 문제점
+
+복잡성 증가: 불필요하게 사용하면 코드가 복잡해지고 가독성이 떨어질 수 있습니다.
+
+성능 저하: 의존성 배열을 잘못 설정하면 오히려 성능이 저하될 수 있습니다.
+
+디버깅 어려움: 메모이제이션된 값이나 함수가 예상대로 동작하지 않을 경우, 디버깅이 어려울 수 있습니다.
+
+따라서, useMemo와 useCallback는 필요한 경우에만 신중하게 사용하는 것이 좋습니다. 기본적으로는 먼저 동작하는 코드를 작성한 후, 성능 최적화가 필요한 부분에만 적용하는 것이 바람직합니다.
+
+
+
+## 리액트 생명주기 (life cycle) 에 대해 설명
+
+리액트 컴포넌트의 생명주기 (life cycle) 는 컴포넌트가 생성되고, 업데이트되고, 제거되는 일련의 과정을 말합니다. 생명주기는 크게 세 가지 단계로 나눌 수 있습니다: 마운트 (Mounting), 업데이트 (Updating), 언마운트 (Unmounting) 입니다.
+
+
+
+### 마운트 (Mounting)
+
+컴포넌트가 처음으로 DOM 에 삽입될 때 발생하는 단계입니다. 주요 메서드는 다음과 같습니다:
+
+constructor: 컴포넌트가 생성될 때 호출됩니다.
+
+getDerivedStateFromProps: props 로부터 state 를 설정할 때 사용됩니다.
+
+render: 컴포넌트를 렌더링합니다.
+
+componentDidMount: 컴포넌트가 처음 렌더링된 후 호출됩니다.
+
+
+
+### 업데이트 (Updating)
+
+컴포넌트의 props 나 state 가 변경되어 다시 렌더링될 때 발생하는 단계입니다. 주요 메서드는 다음과 같습니다:
+
+getDerivedStateFromProps: props가 변경될 때 호출됩니다.
+
+shouldComponentUpdate: 컴포넌트가 리렌더링될지 여부를 결정합니다.
+
+render: 변경된 내용을 렌더링합니다.
+
+getSnapshotBeforeUpdate: DOM 업데이트 직전에 호출됩니다.
+
+componentDidUpdate: 컴포넌트가 업데이트된 후 호출됩니다.
+
+
+
+### 언마운트 (Unmounting)
+
+컴포넌트가 DOM 에서 제거될 때 발생하는 단계입니다. 주요 메서드는 다음과 같습니다:
+
+componentWillUnmount: 컴포넌트가 제거되기 직전에 호출됩니다.
+
+
+
+### 함수형 컴포넌트에서의 생명주기
+
+함수형 컴포넌트에서는 클래스형 컴포넌트의 생명주기 메서드를 대신하여 Hook 을 사용합니다:
+
+
+useEffect: componentDidMount, componentDidUpdate, componentWillUnmount를 대체합니다.
+
+useState: 상태 관리를 위해 사용됩니다.
+
+useRef: DOM 요소에 접근하거나 값을 유지하기 위해 사용됩니다.
+
+리액트 생명주기를 이해하면 컴포넌트의 특정 시점에 원하는 작업을 수행할 수 있어, 더 효율적이고 유지보수하기 쉬운 코드를 작성할 수 있습니다.
+
+
+
+## React 에서 배열을 렌더링할 때 key 를 설정해야 하는 이유와 key 설정 시 주의할 점을 설명
+
+Key를 설정해야 하는 이유
+
+효율적인 업데이트: React 는 Virtual DOM 을 사용하여 변경된 부분만 업데이트합니다. key 를 사용하면 React 가 각 요소를 고유하게 식별할 수 있어, 어떤 요소가 변경되었는지 빠르게 감지할 수 있습니다.
+
+정확한 UI 유지: key 가 없으면 React 는 요소를 재사용하거나 잘못된 요소를 업데이트할 수 있어, UI 가 예상치 못한 방식으로 동작할 수 있습니다.
+
+
+
+### Key 설정 시 주의할 점
+
+고유한 값 사용: key는 배열 내에서 고유해야 합니다. 일반적으로 데이터의 고유 ID를 사용합니다.
+
+변하지 않는 값 사용: key 값은 변하지 않는 값이어야 합니다. 배열의 인덱스를 key로 사용하는 것은 권장되지 않습니다. 배열의 순서가 변경되면 key 값도 변경되어, 불필요한 재렌더링이 발생할 수 있습니다.
+
+문자열 또는 숫자 사용: key 값으로 문자열이나 숫자를 사용하는 것이 좋습니다. 객체나 함수는 사용할 수 없습니다.
+
+```
+const items = [{ id: 1, name: 'item1' }, { id: 2, name: 'item2' }];
+return (
+  &lt;ul&gt;
+    {items.map(item =&gt; (
+      &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;
+    ))}
+  &lt;/ul&gt;
+);
+```/
+
+이렇게 key 를 올바르게 설정하면 React 가 효율적으로 UI 를 업데이트할 수 있습니다.
+
+
+
+## RRA
+
+<ol class="refs">
+<li><a target="_blank" href="https://copilot.microsoft.com/?FORM=undexpand&">Copilot assisted posting.</a></li>
+</ol>
+</codeprint><!-- SEE -->
+
+<codeprint id="docuK-script">
+<script>
+(function(m, $, undefined) {
+m.printMode=false;
+m.recoeveUserId="kipid";
+m.recoCats="";
+m.wait=1024;
+m.delayPad=0;
+
+/**
+ *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+ *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+**/
+window.disqus_config=function () {
+	this.page.identifier="week5-위클리-페이퍼-useMemo-useCallback-에-대해-설명하고-어떤-경우에-사용하면-좋을지-남용할-경우-발생할-수-있는-문제점을-설명-리액트-생명주기-life-cycle-에-대해-설명-React-에서-배열을-렌더링할-때-key-를-설정해야-하는-이유와-key-설정-시-주의할-점을-설명"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+	this.page.url=`https://kipid.tistory.com/entry/${this.page.identifier}`; // Replace PAGE_URL with your page's canonical URL variable
+};
+})(window.k, jQuery);
+</script>
+
+<!-- From kipid.tistory CDN -->
+<script src="https://tistory3.daumcdn.net/tistory/1468360/skin/images/docuK-postProcess-2.3.js" charset="utf-8"></script>
+</codeprint><!-- docuK-script -->
