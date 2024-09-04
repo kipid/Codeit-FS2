@@ -57,6 +57,10 @@ function App() {
     setSearch(e.target['search'].value);
   };
 
+  const handleSubmit = () => {
+
+  }
+
   const handleSubmitSuccess = (newItem) => {
     setItems((prevItems) => [newItem, ...prevItems]);
   };
@@ -72,7 +76,7 @@ function App() {
 
   return (
     <div>
-      <FoodForm onSubmitSuccess={handleSubmitSuccess} />
+      <FoodForm onSubmit={handleSubmit} onSubmitSuccess={handleSubmitSuccess} />
       <button onClick={handleNewestClick}>최신순</button>
       <button onClick={handleCalorieClick}>칼로리순</button>
       <form onSubmit={handleSearchSubmit}>

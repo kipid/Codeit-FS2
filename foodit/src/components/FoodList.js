@@ -38,6 +38,10 @@ function FoodList({ items, onDelete }) {
     setEditingId(null);
   };
 
+  const handleSubmit = () => {
+
+  }
+
   const handleSubmitSuccess = () => {
 
   };
@@ -48,7 +52,7 @@ function FoodList({ items, onDelete }) {
         if (item.id === editingId) {
           return (
             <li key={item.id}>
-              <FoodForm item={item} onSubmitSuccess={handleSubmitSuccess} onCancel={handleCancel} />
+              <FoodForm item={item} initialPreview={item.imgUrl} onSubmit={handleSubmit} onSubmitSuccess={handleSubmitSuccess} onCancel={handleCancel} />
             </li>
           );
         }

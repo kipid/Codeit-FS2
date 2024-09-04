@@ -19,9 +19,10 @@ const INITIAL_VALUES = {
   content: '',
 };
 
-function FoodForm({ item = INITIAL_VALUES, onSubmitSuccess, onCancel }) {
+function FoodForm({ item = INITIAL_VALUES, initialPreview, onSubmit, onSubmitSuccess, onCancel }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittingError, setSubmittingError] = useState(null);
+  const [preview, setPreview] = useState(initialPreview);
   const [values, setValues] = useState(item);
 
   const handleSubmit = async (e) => {
@@ -64,6 +65,7 @@ function FoodForm({ item = INITIAL_VALUES, onSubmitSuccess, onCancel }) {
       <FileInput
         name="imgFile"
         value={values.imgFile}
+        initialPreview={initialPreview}
         onChange={handleChange}
       />
       <input name="title" value={values.title} onChange={handleInputChange} />
