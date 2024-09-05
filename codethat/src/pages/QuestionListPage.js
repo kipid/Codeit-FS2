@@ -8,6 +8,7 @@ import Avatar from '../components/Avatar';
 import styles from './QuestionListPage.module.css';
 import searchBarStyles from '../components/SearchBar.module.css';
 import searchIcon from '../assets/search.svg';
+import { Link } from 'react-router-dom';
 
 function QuestionItem({ question }) {
   return (
@@ -68,7 +69,7 @@ function QuestionListPage() {
       ) : (
         <div className={styles.questionList}>
           {questions.map((question) => (
-            <QuestionItem key={question.id} question={question} />
+            <Link to={`/questions/${question.id}`}><QuestionItem key={question.id} question={question} /></Link>
           ))}
         </div>
       )}
