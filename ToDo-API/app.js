@@ -1,5 +1,10 @@
 import express from "express";
-import tasks from './data/mock.js';
+import mockTasks from './data/mock.js';
+import mongoose from 'mongoose';
+import { DATABASE_URL } from "./env.js";
+import Task from "./models/Task.js";
+
+mongoose.connect(DATABASE_URL).then(() => console.log("Connected to DB."))
 
 const HttpStatus = Object.freeze({
   SUCCESS: 200,
@@ -18,35 +23,24 @@ const app = express();
 
 app.use(express.json());
 
-app.post("/tasks", (req, res) => {
-	const newTask = req.body;
-	const ids = tasks.map((task => task.id));
-	newTask.id = Math.max(...ids) + 1;
-	newTask.isComplete = false;
-	newTask.createdAt = new Date();
-	newTask.updatedAt = new Date();
-	tasks.push(newTask);
+app.post("/tasks", async (req, res) => {
+	const newTask = await Task.create(req.body);
 	res.send(newTask);
 });
 
-app.get("/tasks", (req, res) => {
+app.get("/tasks", async (req, res) => {
 	const sort = req.query.sort;
 	const count = Number(req.query.count);
-	// console.log(sort, count);
-	const compareFn = sort === "oldest"
-		? (a, b) => a.createdAt - b.createdAt
-		: (a, b) => b.createdAt - a.createdAt; // createdAt 오름차순
-	let newTasks = tasks.sort(compareFn);
+	const sortOption = { createdAt: sort === "oldest" ? "asc" : "desc" };
 
-	if (count) {
-		newTasks = newTasks.slice(0, count);
-	}
-	res.send(newTasks);
+	const tasks = await Task.find().sort(sortOption).limit(count); // Full scan
+
+	res.send(tasks);
 });
 
-app.get("/tasks/:id", (req, res) => {
-	const id = Number(req.params.id);
-	const task = tasks.find(task => task.id === id);
+app.get("/tasks/:id", async (req, res) => {
+	const id = req.params.id;
+	const task = await Task.findById(id);
 	// console.log(id);
 	if (task) {
 		res.send(task);
@@ -59,7 +53,7 @@ app.get("/tasks/:id", (req, res) => {
 // PUT 전체, PATCH 일부만
 app.patch("/tasks/:id", (req, res) => {
 	const id = Number(req.params.id);
-	const task = tasks.find(task => task.id === id);
+	const task = mockTasks.find(task => task.id === id);
 	if (task) {
 		Object.keys(req.body).forEach(key => {
 			task[key] = req.body[key];
@@ -73,10 +67,10 @@ app.patch("/tasks/:id", (req, res) => {
 
 app.delete("/tasks/:id", (req, res) => {
 	const id = Number(req.params.id);
-	const idx = tasks.findIndex(task => task.id === id);
+	const idx = mockTasks.findIndex(task => task.id === id);
 	// 못찾으면 idx = -1
 	if (idx >= 0) {
-		tasks.splice(idx, 1);
+		mockTasks.splice(idx, 1);
 		res.sendStatus(HttpStatus.NO_CONTENT);
 	}
 });
