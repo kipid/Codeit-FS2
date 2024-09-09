@@ -1,5 +1,5 @@
 import express from "express";
-import mockTasks from './data/mock.js';
+// import mockTasks from './data/mock.js';
 import mongoose from 'mongoose';
 import { DATABASE_URL } from "./env.js";
 import Task from "./models/Task.js";
@@ -23,12 +23,33 @@ const app = express();
 
 app.use(express.json());
 
-app.post("/tasks", async (req, res) => {
+// useAsync hook
+function asyncHandler(handler) {
+	return (async function (req, res) {
+		try {
+			await handler(req, res);
+		} catch (err) {
+			console.log(err.name);
+			console.log(err.message);
+			if (err.name === "ValidationError") {
+				res.status(HttpStatus.BAD_REQUEST).send({ message: err.message });
+			}
+			else if (err.name === "CastError") {
+				res.status(HttpStatus.NOT_FOUND).send({ message: err.message });
+			}
+			else {
+				res.status(HttpStatus.SERVER_ERROR).send({ message: err.message });
+			}
+		}
+	});
+}
+
+app.post("/tasks", asyncHandler(async (req, res) => {
 	const newTask = await Task.create(req.body);
 	res.send(newTask);
-});
+}));
 
-app.get("/tasks", async (req, res) => {
+app.get("/tasks", asyncHandler(async (req, res) => {
 	const sort = req.query.sort;
 	const count = Number(req.query.count);
 	const sortOption = { createdAt: sort === "oldest" ? "asc" : "desc" };
@@ -36,9 +57,9 @@ app.get("/tasks", async (req, res) => {
 	const tasks = await Task.find().sort(sortOption).limit(count); // Full scan
 
 	res.send(tasks);
-});
+}));
 
-app.get("/tasks/:id", async (req, res) => {
+app.get("/tasks/:id", asyncHandler(async (req, res) => {
 	const id = req.params.id;
 	const task = await Task.findById(id);
 	// console.log(id);
@@ -48,10 +69,10 @@ app.get("/tasks/:id", async (req, res) => {
 	else {
 		res.status(HttpStatus.NOT_FOUND).send({message: "없습니다."});
 	}
-})
+}));
 
 // PUT 전체, PATCH 일부만
-app.patch("/tasks/:id", (req, res) => {
+app.patch("/tasks/:id", asyncHandler((req, res) => {
 	const id = Number(req.params.id);
 	const task = mockTasks.find(task => task.id === id);
 	if (task) {
@@ -63,17 +84,18 @@ app.patch("/tasks/:id", (req, res) => {
 	else {
 		res.status(HttpStatus.NOT_FOUND).send({"message": "없습니다."});
 	}
-});
+}));
 
-app.delete("/tasks/:id", (req, res) => {
-	const id = Number(req.params.id);
-	const idx = mockTasks.findIndex(task => task.id === id);
-	// 못찾으면 idx = -1
-	if (idx >= 0) {
-		mockTasks.splice(idx, 1);
-		res.sendStatus(HttpStatus.NO_CONTENT);
+app.delete("/tasks/:id", asyncHandler(async (req, res) => {
+	const id = req.params.id;
+	const task = await Task.findByIdAndDelete(id);
+	if (task) {
+		res.status(HttpStatus.NO_CONTENT).send(task);
 	}
-});
+	else {
+		res.status(HttpStatus.NOT_FOUND).send();
+	}
+}));
 
 app.listen(3000, () => console.log("Server on"));
 console.log("Hi!");
