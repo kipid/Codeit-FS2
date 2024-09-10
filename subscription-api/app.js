@@ -1,10 +1,22 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import mockSubscriptions from './data/mock.js';
 import { DATABASE_URL } from './env.js';
 import Subscription from './models/Subscription.js';
 
 mongoose.connect(DATABASE_URL).then(() => console.log('Connected to DB'));
+
+const HttpStatus = Object.freeze({
+  SUCCESS: 200,
+  CREATED: 201,
+  ACCEPTED: 202,
+  NON_AUTHORITATIVE_INFORMATION: 203,
+	NO_CONTENT: 204,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  SERVER_ERROR: 500,
+});
 
 const app = express();
 app.use(express.json());
@@ -23,7 +35,7 @@ function asyncHandler(handler) {
       }
     }
   }
-  
+
   return asyncReqHandler;
 }
 
@@ -53,30 +65,30 @@ app.post('/subscriptions', asyncHandler(async (req, res) => {
   res.status(201).send(newSubscription);
 }));
 
-app.patch('/subscriptions/:id', (req, res) => {
-  const id = Number(req.params.id);
-  const subscription = mockSubscriptions.find((sub) => sub.id === id);
+app.patch('/subscriptions/:id', asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const subscription = await Subscription.findById(id);
 
   if (subscription) {
     Object.keys(req.body).forEach((key) => {
       subscription[key] = req.body[key];
     });
-    subscription.updatedAt = new Date();
+    await subscription.save();
     res.send(subscription);
   } else {
     res.status(404).send({ message: 'Cannot find given id.' });
   }
-});
+}));
 
-app.delete('/subscriptions/:id', (req, res) => {
-  const id = Number(req.params.id);
-  const idx = mockSubscriptions.findIndex((sub) => sub.id === id);
-  if (idx >= 0) {
-    mockSubscriptions.splice(idx, 1);
-    res.sendStatus(204);
-  } else {
-    res.status(404).send({ message: 'Cannot find given id.' });
-  }
-});
+app.delete('/subscriptions/:id', asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const sub = await Subscription.findByIdAndDelete(id);
+  if (sub) {
+		res.status(HttpStatus.NO_CONTENT).send(sub);
+	}
+	else {
+		res.status(HttpStatus.NOT_FOUND).send();
+	}
+}));
 
 app.listen(3000, () => console.log('Server Started'));
