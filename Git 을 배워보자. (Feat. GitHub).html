@@ -39,14 +39,19 @@ Git 은 (Global Information Tracker) 의 약자로 대충 보면 된다. (처음
 
 우선 설치: <cite class="ref-git-download"></cite> 에서 다운 받고 대충 설치.
 
-```
-git config alias.history "log --pretty=oneline" --global
+```[.scrollable]
+SET BASEDIR=%CD%
 
-git config user.name "kipid" --global
+set GIT_EDITOR=vim
+set VISUAL=vim
+set EDITOR=%VISUAL%
 
-git config user.email "kipacti@google.com" --global
-
-git config --global init.defaultBranch main --global
+git config --global core.editor "vim"
+git config --global alias.history "log --pretty=oneline"
+git config --global user.name "kipid"
+git config --global user.email "kipacti@gmail.com"
+git config --global --replace-all init.defaultBranch main
+git config --global pull.rebase true
 
 
 
@@ -89,18 +94,28 @@ Git은 내부적으로 크게 3가지 종류의 작업 영역을 두고 동작
 
 다음과 같은 <code>gitconfig.bat</code> 파일을 만들어서 <code>git_설치폴더\bin</code> 폴더에 넣어놓자. 시스템 환경 변수는 적절히 PATH 값을 설정해줘야 하긴 한다.
 
-```[.lang-bat]
+```[.scrollable.lang-bat]
 // --global 태그를 추가로 달면 터미널 껐다켜도 유지가 되는건가? 잘 모르겠네 ㅡ,.ㅡ;;;
-git config alias.history "log --pretty=oneline" --global
+SET BASEDIR=%CD%
 
-git config user.name "kipid" --global
+set GIT_EDITOR=vim
+set VISUAL=vim
+set EDITOR=%VISUAL%
 
-git config user.email "kipacti@google.com" --global
+git config --global core.editor "vim"
+git config --global alias.history "log --pretty=oneline"
+git config --global user.name "kipid"
+git config --global user.email "kipacti@gmail.com"
+git config --global --replace-all init.defaultBranch main
+git config --global pull.rebase true
 
-git config --global init.defaultBranch main --global
+cd [Repo-name directory]
+git config --global credential.helper path/to/the/password/github-pwd
+git remote set-url origin https://kipid:[password]@github.com/kipid/[Repo-name].git
+git pull
 ```/
 
-Cmd 창이나 Shell 혹은 Cmder 에서 <code>gitconfig</code> 만 치면 설정 완료.
+Cmd 창이나 Shell 혹은 Cmder 에서 <code>gitconfig</code> 만 치면 설정 완료. 이렇게 해놓으면 다음부터 비번을 물어보지 않는다.
 
 
 
@@ -168,7 +183,7 @@ git help [커맨드 이름] : 사용법이 궁금한 Git 커맨드의 공식 메
 
 ## GitHub 와의 연계
 
-```
+```[.scrollable]
 git remote add origin https://github.com/kipid/Example_Repository.git
 git branch -M main
 git branch -d master
@@ -194,7 +209,7 @@ Invite a collaborator =&gt; Add ... to Example_Repository
 
 ## 다른 사람의 repository 내 컴퓨터로 가져오기
 
-```
+```[.scrollable]
 git clone https://github.com/numpy/numpy.git
 
 
@@ -209,7 +224,7 @@ git clone [프로젝트의 GitHub 상 주소] : GitHub에 있는 프로젝트를
 
 ## Git history
 
-```
+```[.scrollable]
 git log
 
 git log --pretty=oneline
@@ -267,7 +282,7 @@ git commit --amend // 이전 commit 수정하기.
 
 ## 긴 커맨드에 alias 설정하기
 
-```
+```[.scrollable]
 git config alias.history "log --pretty=oneline" --global
 // git histroy 라고만 써도 자동으로 git log --pretty=oneline 을 실행하게 됨.
 
@@ -275,9 +290,9 @@ git history
 ```/
 
 
-##  --global두 commit 간의 차이 보기
+## 두 commit 간의 차이 보기
 
-``` --global
+```[.scrollable]
 git diff [커밋 A의 아이디] [커밋 B의 아이디]
 ```/
 
@@ -287,7 +302,7 @@ git diff [커밋 A의 아이디] [커밋 B의 아이디]
 
 HEAD: 어떤 commit 하나를 가리킴.
 
-```
+```[.scrollable]
 git reset --hard [커밋 아이디] // 과거 commit 으로 아예 돌아가고 싶을 때 (꽤나 위험한 명령어. 뒷쪽 commit 들이 모두 날라감. 완전히 날라가는건 아니고 git reflog 로만 볼 수 있음.)
 git reset [option] HEAD^ // 이전 commit
 git reset [option] HEAD~n // n번째 전 commit
@@ -302,7 +317,7 @@ git reset [option] HEAD~n // n번째 전 commit
 
 ### git reset을 쓸 때 --hard는 뭐였을까?
 
-```
+```[.scrollable]
 git reset --hard [커밋 아이디]
 git reset --soft [커밋 아이디]
 git reset --mixed [커밋 아이디]
@@ -327,7 +342,7 @@ staging area 에 있던 것들은 커밋을 하더라도 그것과 상관없이 
 
 ## Commit 에 tag 달기
 
-```
+```[.scrollable]
 git tag [태그 이름] [커밋 아이디]
 
 git tag // 프로젝트 디렉토리에 있는 모든 태그를 조회
@@ -384,7 +399,7 @@ Branch: 나뭇가지. 하나의 코드 관리 흐름.
 
 master branch or main branch (요새는 main 으로 주로 이름 붙임.)
 
-```
+```[.scrollable]
 git branch premium // premium branch 만들기
 
 git checkout premium // premium branch 로 이동
@@ -407,7 +422,7 @@ git checkout main // main branch 로 이동
 
 ### Branch merge 하기
 
-```
+```[.scrollable]
 git checkout premium
 git merge main // 현재 premium branch 에 main branch merge 하기
 ```/
@@ -424,7 +439,7 @@ git merge main // 현재 premium branch 에 main branch merge 하기
 
 or
 
-```
+```[.scrollable]
 git merge --abort // Merge 취소
 ```/
 
@@ -444,7 +459,7 @@ git merge --abort // Merge 취소
 
 #### origin 이란?
 
-```
+```[.scrollable]
 git remote add origin https://github.com/kyuri-dev/Math_Box.git
 git push -u origin main // -u 는 --set-upstream 이라는 옵션의 약자
 ```/
@@ -457,13 +472,13 @@ origin 은 '근원', '기원' 이라는 뜻을 가집니다. 아마도 다른 �
 
 #### Remote Repositoy 에 있는 브랜치
 
-```
+```[.scrollable]
 git push origin main:main // origin 은 리모트 레포지토리를 나타내고, main:main 에서 더 먼저 나오는 main 는 로컬 레포지토리의 main 브랜치(~에서)/더 뒤에 나오는 main 는 리모트 레포지토리의 main 브랜치(~으로)를 나타냅니다.
 ```/
 
 그냥 처음부터 tracking connection 을 설정하고 그 이후부터는 git push, git pull 이라고만 써서 편하게 푸시와 풀을 하는 게 좋겠죠? 이게 바로 제가 맨 처음에 로컬 레포지토리의 내용을 리모트 레포지토리로 보낼 때 -u 라는 옵션을 썼던 이유입니다.
 
-```
+```[.scrollable]
 git push -u origin main // tracking connection 설정
 ```/
 
@@ -479,7 +494,7 @@ git push 로 통합시킬 수 있음.
 
 #### Remote repository 에 새로운 branch 추가하기
 
-```
+```[.scrollable]
 git checkout premium
 git push --set-upstream origin premium // premium branch 를 remote 로 처음 push 할 때
 ```/
@@ -517,7 +532,7 @@ git reset에 관해서 분명하게 아셔야할 게
 
 브랜치를 통해서 커밋을 가리키는 게 아니라 본인이 직접 커밋을 가리키고 있는 상태의 HEAD를 특별히 가리키는 말.
 
-```
+```[.scrollable]
 git checkout [Commit ID]
 ```/
 
@@ -649,7 +664,7 @@ Remote repository 에서 가져온 branch 의 내용을 merge 하기 전에 점�
 
 Remote repository 에 있는 branch 의 내용과 내가 작성한 코드를 비교해서 잘못된 부분이 없는지 검토해야 할 때.
 
-```
+```[.scrollable]
 git fetch
 
 git diff premium origin/premium // 두 local branch 와 remote branch 를 비교
@@ -681,7 +696,7 @@ Commit 을 되돌리는 명령어. Commit 이 하나 더 만들어짐 (Revert co
 
 ### git revert [복귀 될 commit id]..[초기화 할 commit 들 중 가장 나중 commit id] // (여러개 commit 들을 한꺼번에 revert 하기)
 
-```
+```[.scrollable]
 git revert [복귀 될 commit id]..[초기화 할 commit 들 중 가장 나중 commit id] // 여러개의 revert commit 들이 생김
 ```/
 
@@ -703,7 +718,7 @@ git revert: 특정 커밋에서 이루어진 작업을 되돌리는 (취소하�
 
 ## git reflog: git reset 후의 commit 들 (git reset 을 하고 나서 돌아오려면?)
 
-```
+```[.scrollable]
 git reflog // reference log, reset 이전/이후의 commit 들도 보기
 ```/
 
@@ -722,7 +737,7 @@ SourceTree <cite class="ref-sourcetree"><a target="_blank" href="https://www.sou
 
 ## 깔끔한 커밋 히스토리를 원할 땐 git merge 대신 git rebase [branch name]
 
-```
+```[.scrollable]
 git rebase [branch name]
 
 git rebase --continue // Conflict 가 발생해서 제대로 진행되지 못한 rebase 를 계속 진행하라
@@ -736,7 +751,7 @@ merge 보다 commit history 가 더 깔끔하단 장점이 있음.
 
 ## git stash: 작업 내용 임시 저장하기
 
-```
+```[.scrollable]
 git stash // 작업했던/수정했던 파일들을 stack 에 잠기 옮겨둠
 git stash list
 
@@ -747,7 +762,7 @@ git stash apply // 작업했던/수정했던 파일들을 복구
 
 ### 잘못된 브랜치에서 작업하고 있었다면?
 
-```
+```[.scrollable]
 git checkout main
 git stash
 git checkout premium
@@ -773,14 +788,14 @@ git stash pop [작업 내용의 아이디] // git stash apply 를 해주고 바�
 
 다른 branch 의 더 오래된 commit 을 가져다 오고 싶을때 주로 쓰임.
 
-```
+```[.scrollable]
 git cherry-pick [commit id]
 ```/
 
 
 ## 여러 커밋을 하나의 커밋으로 만들기 (심화)
 
-```
+```[.scrollable]
 git reset --soft [commit id] // 없애고 싶은 자잘한 commit 들이 있을때 reset to last commit with --soft option.
 git add .
 git commit -m "Message"
@@ -806,7 +821,7 @@ git commit -m "Message"
 
 그런데 먼저 commit 을 한 후에 .gitignore 에 추가를 하면, file 들이 계속 추적되는 경우가 있다. 이 경우 아래와 같은 명령어를 치면 되는듯 하다. <cite class="ref-kipid-gitignore"><a target="_blank" href="https://kipid.tistory.com/entry/gitignore-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0">.gitignore 설정하기</a></cite>
 
-```
+```[.scrollable]
 git rm -r --cached .
 git add .
 git commit -m "Apply .gitignore"
