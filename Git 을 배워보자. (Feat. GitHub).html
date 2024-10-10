@@ -1228,12 +1228,180 @@ AWS: 서비스 중단이면 대란.
 
 
 
+## 협업시 Git/GitHub Tips
+
+참조: <cite class="ref-sojaehee"></cite>
+
+
+
+### Windows (윈도우) 에선 <code>.bat</code>, Mac 에선 <code>.sh</code> 만들어서 활용하면 좋음.
+
+kipid 는 자기 계정 이름으로 바꾸시고 아래와 같은 <code>.bat</code> 파일을 C:/PortableGit/bin 디렉토리에 복붙하면 됨. 환경변수 편집에서 PATH 에 C:/PortableGit/bin 도 추가해 주셔야 하고.
+
+```[.linenums]
+@rem copy to C:/PortableGit/bin
+
+:: Current directory
+SET BASEDIR=%CD%
+
+set GIT_EDITOR=vim
+set VISUAL=vim
+set EDITOR=%VISUAL%
+
+git config --global core.editor "vim"
+git config --global alias.history "log --pretty=oneline"
+git config --global user.name "kipid"
+git config --global user.email "kipacti@gmail.com"
+git config --global --replace-all init.defaultBranch main
+git config --global pull.rebase true
+rem 자신의 이름과 이메일을 입력할 것.
+
+
+
+rem ssh 인증이 필요하다면 아래와 같은 명령어를 치면, 매번 git push/pull 마다 인증할 필요가 없어짐.
+rem call ssh-agent
+rem ssh-add C:/path/to/.ssh/github-recoeve-rsa
+rem git config --global credential.helper cache
+
+rem cd [Git-repo-name-1]
+rem git remote set-url origin git@github.com:kipid/[Git-repo-name-1].git
+rem git pull
+
+rem cd [Git-repo-name-1]
+rem git remote set-url origin git@github.com:kipid/[Git-repo-name-2].git
+rem git pull
+
+
+
+git config --global credential.helper C:/[Git-repo-name-2]/.ssh/github-pwd
+git remote set-url origin https://kipid:[temporal-password]@github.com/kipid/[Git-repo-name-1].git
+git pull
+
+cd C:/[Git-repo-name-2]/
+git remote set-url origin https://kipid:[temporal-password]@github.com/kipid/[Git-repo-name-2].git
+git pull
+
+:: Back to current directory
+cd %BASEDIR%
+```/
+
+
+
+### 다른 팀원에 의해 dev가 merge 된 경우
+
+우선 dev branch 로 가서 dev 를 최신으로 동기화 한 뒤 내 작업 branch 로 가서 dev 로 merge 후 작업 이어서 진행. Merge 한다고 dev branch 가 바뀌는건 아님.
+
+```[.linenums]
+(feature/my-job 브랜치에서 작업 도중 다른 팀원에 의해 dev가 merge 된 경우)
+git checkout dev
+
+git pull upstream dev
+
+git checkout feature/my-job
+
+git merge dev
+# 커밋메시지 변경 후 저장
+# 작업이어서 진행
+```/
+
+
+
+### Project PR 머지 후 작업
+
+```[.linenums]
+git checkout dev
+
+git pull upstream dev
+
+git push origin dev    ## 중요
+
+git switch -c feature/next-job
+```/
+
+
+
+### 빠르게 전체 팀원이 적용해야 할 변경사항을 dev 브랜치로 반영하면서, 동시에 아직 완료되지 않은 feature/my-job 브랜치 작업을 유지하려면
+
+```[.linenums]
+git stash
+```/
+
+로 현재 feature/my-job branch 에서 작업하고 있는 내용을 임시로 저장.
+
+dev branch 로 가서 최신으로 동기화 시킨 뒤 새로운 branch 를 생성. (dev 기반으로 branch 가 생성됨.)
+
+```[.linenums]
+git checkout dev
+git pull
+git checkout -b feature/hot-fix
+```/
+
+필요한 변경 사항만 적용: 데이터베이스 테이블 수정과 같이 빠르게 반영해야 하는 사항만 이 브랜치에 커밋합니다.
+
+```[.linenums]
+git add .
+git commit -m "fix: apply urgent DB table changes"
+git push
+```/
+
+To dev from feature/hot-fix 로 PR merge 요청. 바로 self merge 할 수 있음 하고, 1인이상 approve 해야 merge 되는 상황이라면 동료에게 알려서 빠르게 merge.
+
+Merge 된 dev branch 를 다시 최신 동기화. 그리고 원래 작업으로 복귀.
+
+```[.linenums]
+git checkout dev
+git pull
+
+git checkout feature/my-job
+git stash pop
+git merge dev
+```/
+
+
+
+### 충돌이 발생한 경우
+
+충돌이 발생한 파일에서 충돌한 부분을 수정해야 합니다. Git은 충돌 부분을 다음과 같이 표시합니다.
+
+```
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+이 부분은 feature/my-job 브랜치의 변경 내용입니다.
+=======
+이 부분은 dev 브랜치의 변경 내용입니다.
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; dev
+```/
+
+두 내용을 비교하여 충돌을 해결한 후, 필요 없는 표시(&lt;&lt;&lt;&lt;&lt;&lt;&lt;, =======, &gt;&gt;&gt;&gt;&gt;&gt;&gt;)를 삭제합니다.
+
+충돌을 해결한 후, 수정한 파일을 스테이징하고 커밋.
+
+<div class="cmt">
+
+이 과정은 VS code 에서 잘 해결해 줌. (Extension 을 깔아서 그런건가? =ㅇ=)
+
+Accept current, Accept the following, Accept both 등이 충돌난 부분에 떴었던거 같음. 적절히 선택하면 빠르게 충돌을 해결할 수 있음.
+
+</div>
+
+
+
+### 모든 충돌을 dev 브랜치의 내용으로 해결
+
+```
+git checkout --theirs .
+```/
+
+라고 치면 충돌 부분에서 상대 브랜치 (dev branch) 의 내용을 선택한다는데... 이건 좀 조심해서 써야할듯.
+
+
+
 ## RRA
 
 <ol class="refs">
 <li id="ref-codeit-git"><a target="_blank" href="https://www.codeit.kr/topics/git">Git - GIT 강의 | 코드잇</a><br/>
 	<a target="_blank" href="https://www.codeit.kr/topics/collaborating-with-git">Git 협업하기 - 강의 | 코드잇</a></li>
 <li id="ref-git-download"><a target="_blank" href="https://git-scm.com/">https://git-scm.com/</a></li>
+<li id="ref-sojaehee"><a target="_blank" href="https://shard-driver-9f8.notion.site/tips-10ec1a617c5a80f1a1abca6e5f66c25e">shard-driver-9f8.notion.site :: 깃허브 tips</a></li>
 </ol>
 </codeprint><!-- SEE -->
 
