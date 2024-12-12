@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import Image from "next/image";
 
 interface Product {
@@ -11,21 +11,7 @@ interface Props {
 	product: Product;
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-	const res = await fetch('https://learn.codeit.kr/api/codeitmall/products/');
-	const data = await res.json();
-	const products: Product[] = data.results;
-	const paths = products.map((product: Product) => ({
-		params: { id: String(product.id) },
-	}));
-
-	return {
-		paths,
-		fallback: 'blocking',
-	};
-}
-
-export const getStaticProps: GetStaticProps<Props> = async (context) => {
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
 	const productId = context.params?.id;
 	let product: Product;
 	try {
