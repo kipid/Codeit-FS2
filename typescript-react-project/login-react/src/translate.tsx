@@ -1,18 +1,27 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useState } from 'react';
 
-const LocaleContext = createContext({
+type Locale = 'ko' | 'en';
+
+const LocaleContext = createContext<{
+  locale: Locale;
+  setLocale: (locale: Locale) => void;
+}>({
   locale: 'ko',
   setLocale: () => {},
-} as any);
+});
 
-export function LocaleContextProvider({ children }: any) {
-  const [locale, setLocale] = useState('ko');
+interface Props {
+  children: ReactNode;
+}
+
+export function LocaleContextProvider({ children }: Props) {
+  const [locale, setLocale] = useState<Locale>('ko');
 
   return (
     <LocaleContext.Provider
       value={{
         locale,
-        setLocale: setLocale as any,
+        setLocale: setLocale,
       }}
     >
       {children}
@@ -29,6 +38,7 @@ const dict = {
     'forgot your password?': '비밀번호를 잊으셨나요?',
     'new user?': '회원이 아니신가요?',
     signup: '가입하기',
+    logout: '로그아웃',
   },
   en: {
     signin: 'Signin',
@@ -51,9 +61,8 @@ export function useSetLocale() {
   return setLocale;
 }
 
-export function useTranslate(): (key: string) => string {
+export function useTranslate(): (key: keyof typeof dict[Locale]) => string {
   const locale = useLocale();
-  // @ts-ignore
-  const t = (key) => dict[locale][key];
+  const t = (key: keyof typeof dict[Locale]) => dict[locale][key];
   return t;
 }

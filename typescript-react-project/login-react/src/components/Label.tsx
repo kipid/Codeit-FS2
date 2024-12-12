@@ -1,7 +1,9 @@
 import { ReactNode } from 'react';
 import styles from './Label.module.css';
 
-interface Props {
+interface Props
+// extends LabelHTMLAttributes<HTMLLabelElement>
+{
   className?: string;
   children: ReactNode;
 }
