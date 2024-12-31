@@ -1,4 +1,5 @@
 import { postLogin } from "@/apis/authService";
+import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -58,6 +59,7 @@ function LogIn() {
             id="password"
             placeholder="비밀번호"
           />
+					<Image className="absolute right-3 top-1 bottom-1" width={24} height={24} src="/icons/eye.svg" alt="eye" onClick={() => setPwdIsVisible(!pwdIsVisible)} />
         </div>
         {errors.password && <p className="text-red-400 text-sm">{errors.password.message}</p>}
         <button className="w-full h-10 rounded-lg text-white bg-blue-600" type="submit">로그인</button>

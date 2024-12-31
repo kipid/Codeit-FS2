@@ -1,0 +1,1 @@
+GET https://dns.google/resolve?name=codeit.kr&type=A
